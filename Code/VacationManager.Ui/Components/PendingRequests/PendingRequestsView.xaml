@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="VacationManager.Ui.Components.PendingRequests.PendingRequestsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="Populate" ToolTip="{Binding Localization.RefreshTooltipText}">
+                <Image Source="/VacationManager.Ui;component/Resources/Icons/icontexto-webdev-reload-032x032.png"/>
+            </Button>
+            <Button x:Name="ApproveRequest" ToolTip="{Binding Localization.ApproveTooltipText}">
+                <Image Source="/VacationManager.Ui;component/Resources/Icons/icontexto-webdev-ok-032x032.png"/>
+            </Button>
+            <Button x:Name="RejectRequest" ToolTip="{Binding Localization.RejectTooltipText}">
+                <Image Source="/VacationManager.Ui;component/Resources/Icons/icontexto-webdev-cancel-032x032.png"/>
+            </Button>
+        </StackPanel>
+        
+        <DataGrid x:Name="Items" Grid.Row="1" Grid.ColumnSpan="2"
+                  HorizontalAlignment="Stretch"
+                  AutoGenerateColumns="False" IsReadOnly="True"
+                  SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Request No." Binding="{Binding RequestNumber}"/>
+                <DataGridTextColumn Header="Employee"/>
+                <DataGridTextColumn Header="Number of days" Binding="{Binding VacationDays.Count}"/>
+                <DataGridTextColumn Header="Submission date" Binding="{Binding SubmissionDate}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

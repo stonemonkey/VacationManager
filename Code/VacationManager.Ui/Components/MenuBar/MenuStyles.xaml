@@ -1,0 +1,104 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <DataTemplate x:Key="MenuDataTemplate">
+        <DockPanel Height="85" Width="85">
+            <TextBlock Foreground="DarkGray" Text="{Binding Path=Name}" HorizontalAlignment="Center" DockPanel.Dock="Bottom"/>
+            <Image Source="{Binding Path=ImagePath}" Stretch="Fill"  HorizontalAlignment="Center"/>
+        </DockPanel>
+    </DataTemplate>
+
+    <Style x:Key="MenuItemStyle" TargetType="Button">
+        <Setter Property="Margin" Value="6,3"/>
+        <Setter Property="Padding" Value="3"/>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="ContentTemplate" Value="{StaticResource MenuDataTemplate}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid Background="{TemplateBinding Background}">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0:0:0.3" To="MouseOver"/>
+                                    <VisualTransition From="MouseOver" GeneratedDuration="0:0:0.2"/>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="MouseOver">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To="1.2" 
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)" 
+                                                         Storyboard.TargetName="contentPresenter"/>
+                                        <DoubleAnimation Duration="0" To="1.2" 
+                                                         Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)" 
+                                                         Storyboard.TargetName="contentPresenter"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Duration="0" To=".55" 
+                                                         Storyboard.TargetProperty="Opacity" 
+                                                         Storyboard.TargetName="contentPresenter"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <ColorAnimation Duration="0:0:0.5" To="DarkOliveGreen" 
+                                                        Storyboard.TargetProperty="(Rectangle.Fill).(SolidColorBrush.Color)" 
+                                                        Storyboard.TargetName="fillColor"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0:0:0.5" To="Focused"/>
+                                    <VisualTransition From="Focused" GeneratedDuration="0:0:0.3"/>
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Focused">
+                                </VisualState>
+                                <VisualState x:Name="Unfocused"/>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="LayoutStates">
+                                <VisualState x:Name="AfterLoaded"/>
+                                <VisualState x:Name="BeforeLoaded"/>
+                                <VisualState x:Name="BeforeUnloaded"/>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Rectangle x:Name="fillColor" Fill="Transparent" 
+                                   IsHitTestVisible="False" 
+                                   RadiusY="5" RadiusX="5"/>
+                        <Rectangle x:Name="fillColor2" Fill="DarkOliveGreen" 
+                                   IsHitTestVisible="False" 
+                                   Opacity="0" RadiusY="5" RadiusX="5"/>
+                        <Rectangle x:Name="FocusVisualElement" 
+                                   RadiusY="5" RadiusX="5" 
+                                   Stroke="DarkOliveGreen" 
+                                   StrokeThickness="1" Opacity="0"/>
+                        <Rectangle x:Name="glow" IsHitTestVisible="False" RadiusY="5" RadiusX="5">
+                            <Rectangle.Fill>
+                                <RadialGradientBrush>
+                                    <GradientStop Color="Transparent" Offset="0.576"/>
+                                    <GradientStop Color="#7EFFFFFF" Offset="0.165"/>
+                                </RadialGradientBrush>
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <ContentPresenter x:Name="contentPresenter" 
+                                          RenderTransformOrigin="0.5, 0.5"
+                                          Margin="{TemplateBinding Padding}"
+                                          Content="{TemplateBinding Content}" 
+                                          ContentTemplate="{TemplateBinding ContentTemplate}" 
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
+                            <ContentPresenter.RenderTransform>
+                                <ScaleTransform/>
+                            </ContentPresenter.RenderTransform>
+                        </ContentPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="VacationManager.Ui.Components.MyRequests.MyRequestDetailsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+             xmlns:Converters="clr-namespace:VacationManager.Ui.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    
+    <UserControl.Resources>
+        <Converters:Bool2VisibilityConverter x:Key="Bool2Visibility"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="SaveRequest" ToolTip="{Binding Localization.SaveTooltipText}">
+                <Image Source="/VacationManager.Ui;component/Resources/Icons/icontexto-webdev-file-032x032.png"/>
+            </Button>
+            <Button x:Name="CancelRequest" ToolTip="{Binding Localization.CancelTooltipText}">
+                <Image Source="/VacationManager.Ui;component/Resources/Icons/icontexto-webdev-remove-032x032.png"/>
+            </Button>
+        </StackPanel>
+
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <StackPanel Grid.RowSpan="5">
+                <TextBlock Text="{Binding Localization.VacationDaysFieldText}"/>
+                <Calendar SelectionMode="MultipleRange" IsEnabled="{Binding CanSaveRequest}"
+                      cal:Message.Attach ="[Event SelectedDatesChanged] = [Action UpdateSelectedDates($this.SelectedDates)]"/>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="1" Visibility="{Binding CanCancelRequest, Converter={StaticResource Bool2Visibility}}">
+                <TextBlock Text="{Binding Localization.RequestNumberFieldText}"/>
+                <TextBox IsReadOnly="True" Text="{Binding Item.RequestNumber, Mode=OneWay}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Grid.Row="1" Visibility="{Binding CanCancelRequest, Converter={StaticResource Bool2Visibility}}">
+                <TextBlock Text="{Binding Localization.StatusFieldText}"/>
+                <TextBox IsReadOnly="True" Text="{Binding Item.State, Mode=OneWay}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Grid.Row="2" Visibility="{Binding CanCancelRequest, Converter={StaticResource Bool2Visibility}}">
+                <TextBlock Text="{Binding Localization.SubmissionDateFieldText}"/>
+                <DatePicker IsEnabled="False" SelectedDate="{Binding Item.SubmissionDate, Mode=OneWay}"/>
+            </StackPanel>
+            
+            <StackPanel Grid.Column="1" Grid.Row="3">
+                <TextBlock Text="{Binding Localization.NumberOfDaysFieldText}"/>
+                <TextBox IsReadOnly="True" Text="{Binding Item.NumberOfDays, Mode=OneWay}"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
