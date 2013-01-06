@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ServiceModel;
-using Csla;
+﻿using Csla;
 using VacationManager.Common.DataContracts;
 using VacationManager.Common.ServiceContracts;
 
@@ -8,7 +6,7 @@ namespace VacationManager.Ui.BusinessObjects
 {
     public class VacationRequestInfoList : ReadOnlyListBase<VacationRequestInfoList, VacationRequest>
     {
-        private void DataPortal_Fetch(bool myRequests)
+        protected void DataPortal_Fetch(VacationRequestSearchCriteriaDto criteria)
         {
             RaiseListChangedEvents = false;
             IsReadOnly = false;
@@ -16,12 +14,7 @@ namespace VacationManager.Ui.BusinessObjects
             using (var proxy = new ServiceProxy<IVacationRequestService>(Configuration.ServiceAddress))
             {
                 var channel = proxy.GetChannel();
-                
-                IList<VacationRequestDto> requests;
-                if (myRequests)
-                    requests = channel.GetMyRequests();
-                else
-                    requests = channel.GetPendingRequests();
+                var requests = channel.SearchRequests(criteria);
 
                 foreach (var item in requests)
                     Add(DataPortal.Create<VacationRequest>(item));

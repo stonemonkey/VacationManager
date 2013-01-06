@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using Ninject;
+using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
 
@@ -25,6 +26,9 @@ namespace VacationManager.Ui.Components.VacationDays
 
         [Inject]
         public IDataService DataService { get; set; }
+
+        [Inject]
+        public IContextViewModel Context { get; set; }
 
         #endregion
 
@@ -53,7 +57,7 @@ namespace VacationManager.Ui.Components.VacationDays
         {
             yield return UiService.ShowBusy();
 
-            var result = DataService.Fetch<BusinessObjects.VacationDays>(0);
+            var result = DataService.Fetch<BusinessObjects.VacationDays>(Context.CurrentEmployee.Id);
             yield return result;
 
             yield return UiService.HideBusy();

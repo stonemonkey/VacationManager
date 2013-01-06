@@ -33,8 +33,9 @@
                   SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Request No." Binding="{Binding RequestNumber}"/>
-                <DataGridTextColumn Header="Employee"/>
+                <DataGridTextColumn Header="Employee" Binding="{Binding EmployeeFullName}"/>
                 <DataGridTextColumn Header="Number of days" Binding="{Binding VacationDays.Count}"/>
+                <DataGridTextColumn Header="Vacation days"/>
                 <DataGridTextColumn Header="Submission date" Binding="{Binding SubmissionDate}"/>
             </DataGrid.Columns>
         </DataGrid>

@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="DataContracts\EmployeeDto.cs" />
     <Compile Include="DataContracts\EmployeeRoles.cs" />
+    <Compile Include="DataContracts\VacationRequestSearchCriteriaDto.cs" />
     <Compile Include="DataContracts\VacationRequestState.cs" />
     <Compile Include="DataContracts\VacationDaysDto.cs" />
     <Compile Include="DataContracts\VacationRequestDto.cs" />

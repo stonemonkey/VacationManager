@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VacationManager.Ui.Components.Search {
+namespace VacationManager.Ui.Components.Context {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace VacationManager.Ui.Components.Search {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class SearchStrings {
+    public class ContextStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal SearchStrings() {
+        internal ContextStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace VacationManager.Ui.Components.Search {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VacationManager.Ui.Components.Search.SearchStrings", typeof(SearchStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VacationManager.Ui.Components.Context.ContextStrings", typeof(ContextStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,15 +57,6 @@ namespace VacationManager.Ui.Components.Search {
             }
             set {
                 resourceCulture = value;
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Search.
-        /// </summary>
-        public static string SearchTooltipText {
-            get {
-                return ResourceManager.GetString("SearchTooltipText", resourceCulture);
             }
         }
     }

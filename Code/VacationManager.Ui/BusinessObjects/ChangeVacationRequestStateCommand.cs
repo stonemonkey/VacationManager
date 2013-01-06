@@ -23,7 +23,7 @@ namespace VacationManager.Ui.BusinessObjects
 
         #region DataPortal_XYZ methods
 
-        private void DataPortal_Execute()
+        protected override void DataPortal_Execute()
         {
             using (var proxy = new ServiceProxy<IVacationRequestService>(Configuration.ServiceAddress))
             {

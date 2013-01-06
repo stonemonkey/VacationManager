@@ -135,4 +135,7 @@
   <data name="MyRequestsMenuBarTitle" xml:space="preserve">
     <value>My requests</value>
   </data>
+  <data name="UnregistredEmployeeMessage" xml:space="preserve">
+    <value>You are not allowed to use application. There is no employee registred for your user.</value>
+  </data>
 </root>

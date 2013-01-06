@@ -26,5 +26,8 @@ namespace VacationManager.Common.DataContracts
 
         [DataMember]
         public long EmployeeId { get; set; }
+
+        [DataMember]
+        public string EmployeeFullName { get; set; }
     }
 }

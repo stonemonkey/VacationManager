@@ -18,7 +18,7 @@
         <DockPanel x:Name="Header">
             <ContentControl x:Name="MenuBar" HorizontalAlignment="Left" 
                             DockPanel.Dock="Left"/>
-            <ContentControl x:Name="Search" HorizontalAlignment="Right" VerticalAlignment="Center" 
+            <ContentControl x:Name="Context" HorizontalAlignment="Right" VerticalAlignment="Center" 
                             DockPanel.Dock="Right"/>
         </DockPanel>
 

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using FizzWare.NBuilder;
 using FizzWare.NBuilder.Dates;
 using VacationManager.Common.DataContracts;
@@ -12,17 +11,26 @@ namespace VacationManager.Services
     public class VacationService : 
         IVacationRequestService, IVacationDaysService, IEmployeeService
     {
-        private const long CurrentEmployeeId = 2;
-
         public VacationRequestDto CreateRequest(VacationRequestDto request)
         {
             if (request == null)
                 throw new ArgumentNullException("request");
+            
+            if (_employeesTestData.All(x => x.Id != request.EmployeeId))
+                throw new ApplicationException(
+                    string.Format("New request is associated with inexistent employee having id {0}.", request.EmployeeId));
+
+            var numberOfVacationDays = request.VacationDays.Count();
+            var numberOfVacationDaysLeft = _vacationDaysTestData.Single(x => x.EmployeeId == request.EmployeeId).Left;
+            if ((numberOfVacationDays < 1) || (numberOfVacationDays > numberOfVacationDaysLeft))
+                throw new ApplicationException(
+                    string.Format("New request has invalid number of vacation days {0}. Must greather than 0 and less or equal than days left {1}.", numberOfVacationDays, numberOfVacationDays));
 
             request.RequestNumber = _uniqueRequestIdTestData++;
             request.CreationDate = DateTime.Now;
             request.State = VacationRequestState.Submitted;
-            request.EmployeeId = CurrentEmployeeId;
+            var employee = _employeesTestData.Single(x => x.Id == request.EmployeeId);
+            request.EmployeeFullName = employee.Firstname + " " + employee.Surname;
             
             _vacationRequestsTestData.Add(request);
             
@@ -59,33 +67,39 @@ namespace VacationManager.Services
             request.State = toState;
         }
 
-        public List<VacationRequestDto> GetMyRequests()
+        public List<VacationRequestDto> SearchRequests(VacationRequestSearchCriteriaDto criteria)
         {
-            return _vacationRequestsTestData
-                .Where(x => x.EmployeeId == CurrentEmployeeId)
-                .ToList();
-        }
-        
-        public List<VacationRequestDto> GetPendingRequests()
-        {
-            var myEmployeeIds = _employeesTestData
-                .Where(x => x.ManagerId == CurrentEmployeeId)
-                .Select(x => x.Id);
+            if (criteria == null)
+                return _vacationRequestsTestData.ToList();
+
+            IEnumerable<long> employeeIds;
+            if (criteria.GetMine)
+                employeeIds = new List<long> { criteria.EmployeeId };
+            else
+                employeeIds = _employeesTestData
+                    .Where(x => x.ManagerId == criteria.EmployeeId)
+                    .Select(x => x.Id);
 
             return _vacationRequestsTestData
                 .Where(x =>
-                    myEmployeeIds.Contains(x.EmployeeId) &&
-                    (x.State == VacationRequestState.Submitted))
+                    employeeIds.Contains(x.EmployeeId) &&
+                    ((criteria.States == null) || criteria.States.Contains(x.State)))
                 .OrderByDescending(x => x.CreationDate)
                 .ToList();
         }
 
-        public VacationDaysDto GetVacationDays()
+        public VacationDaysDto GetVacationDaysByEmployeeId(long employeeId)
         {
-            var userName = Thread.CurrentPrincipal.Identity.Name;
-
             return _vacationDaysTestData
-                .SingleOrDefault(x => x.EmployeeId == CurrentEmployeeId);
+                .SingleOrDefault(x => x.EmployeeId == employeeId);
+        }
+
+        public EmployeeDto GetEmployeeById(long id)
+        {
+            // just checking if we have here the caller identity
+            //var userName = Thread.CurrentPrincipal.Identity.Name;
+
+            return _employeesTestData.SingleOrDefault(x => x.Id == id);
         }
 
         #region VacationRequest TestData helpers
@@ -102,16 +116,20 @@ namespace VacationManager.Services
                     .And(x => x.State = (VacationRequestState)_randomTestDataGenerator.Next(1, 3))
                 .TheFirst(2)
                     .With(x => x.EmployeeId = 1)
+                    .And(x => x.EmployeeFullName = "Costin Morariu")
                     .Do(x => x.VacationDays.Add(December.The20th))
                     .Do(x => x.VacationDays.Add(December.The21st))
                 .TheNext(5)
                     .With(x => x.EmployeeId = 2)
+                    .And(x => x.EmployeeFullName = "Mihai Barabas")
                     .Do(x => x.VacationDays.Add(December.The10th))
                 .TheNext(2)
                     .With(x => x.EmployeeId = 1)
+                    .And(x => x.EmployeeFullName = "Costin Morariu")
                     .Do(x => x.VacationDays.Add(December.The11th))
                 .TheNext(1)
-                    .With(x => x.EmployeeId = 3)
+                    .With(x => x.EmployeeId = 5)
+                    .And(x => x.EmployeeFullName = "Ioana Sandu")
                     .Do(x => x.VacationDays.Add(December.The2nd))
                     .Do(x => x.VacationDays.Add(December.The3rd))
                     .Do(x => x.VacationDays.Add(December.The4th))
@@ -131,8 +149,8 @@ namespace VacationManager.Services
                     .With(x => x.EmployeeId = 1) // Costin Morariu
                     .And(x => x.Year = 2012)
                     .And(x => x.TotalNumber = 21)
-                    .And(x => x.Taken = 21)
-                    .And(x => x.Left = 0)
+                    .And(x => x.Taken = 18)
+                    .And(x => x.Left = 2)
                     .And(x => x.Paid = 0)
                 .TheNext(1)
                     .With(x => x.EmployeeId = 2) // Mihai Barabas
@@ -157,38 +175,38 @@ namespace VacationManager.Services
                 .All()
                     .With(x => x.Id = _uniqueEmployeeIdTestData++)
                 .TheFirst(1) // #1
-                    .With(x => x.FirstName = "Costin")
-                    .And(x => x.SurnameName = "Morariu")
+                    .With(x => x.Firstname = "Costin")
+                    .And(x => x.Surname = "Morariu")
                     .And(x => x.EmailAddress = "costin.morariu@iquestgroup.com")
                     .And(x => x.Roles = EmployeeRoles.Executive)
                     .And(x => x.ManagerId = 2) // Mihai Barabas
                 .TheNext(1) // #2
-                    .With(x => x.FirstName = "Mihai")
-                    .And(x => x.SurnameName = "Barabas")
+                    .With(x => x.Firstname = "Mihai")
+                    .And(x => x.Surname = "Barabas")
                     .And(x => x.EmailAddress = "mihai.barabas@iquestgroup.com")
                     .And(x => x.Roles = (EmployeeRoles.Executive | EmployeeRoles.Manager))
                     .And(x => x.ManagerId = 3) // Top Manager
                 .TheNext(1) // #3
-                    .With(x => x.FirstName = "Top")
-                    .And(x => x.SurnameName = "Manager")
+                    .With(x => x.Firstname = "Top")
+                    .And(x => x.Surname = "Manager")
                     .And(x => x.EmailAddress = "top.manager@iquestgroup.com")
                     .And(x => x.Roles = EmployeeRoles.Manager)
                     .And(x => x.ManagerId = 0) // does not have
                 .TheNext(1) // #4
-                    .With(x => x.FirstName = "Hr")
-                    .And(x => x.SurnameName = "Generic")
+                    .With(x => x.Firstname = "Hr")
+                    .And(x => x.Surname = "Generic")
                     .And(x => x.EmailAddress = "hr_holidays@iquestgroup.com")
                     .And(x => x.Roles = EmployeeRoles.Hr)
                     .And(x => x.ManagerId = 0) // does not have
                 .TheNext(1) // #5
-                    .With(x => x.FirstName = "Ioana")
-                    .And(x => x.SurnameName = "Sandu")
+                    .With(x => x.Firstname = "Ioana")
+                    .And(x => x.Surname = "Sandu")
                     .And(x => x.EmailAddress = "ioana.sandu@iquestgroup.com")
                     .And(x => x.Roles = (EmployeeRoles.Executive | EmployeeRoles.Hr))
                     .And(x => x.ManagerId = 0) // does not have
                 .TheNext(1) // #6
-                    .With(x => x.FirstName = "Hr")
-                    .And(x => x.SurnameName = "Manager")
+                    .With(x => x.Firstname = "Hr")
+                    .And(x => x.Surname = "Manager")
                     .And(x => x.EmailAddress = "Hr.Manager@iquestgroup.com")
                     .And(x => x.Roles = (EmployeeRoles.Executive | EmployeeRoles.Manager | EmployeeRoles.Hr))
                     .And(x => x.ManagerId = 3) // Top Manager

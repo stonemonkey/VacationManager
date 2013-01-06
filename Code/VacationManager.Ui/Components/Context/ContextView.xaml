@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="VacationManager.Ui.Components.Search.SearchView"
+﻿<UserControl x:Class="VacationManager.Ui.Components.Context.ContextView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,9 +7,6 @@
              d:DesignHeight="300" d:DesignWidth="300">
     
     <StackPanel Orientation="Horizontal">
-        <TextBox x:Name="KeyWord" MinWidth="150"/>
-        <Button x:Name="Search" ToolTip="{Binding Localization.SearchTooltipText}">
-            <Image Source="/VacationManager.Ui;component/Resources/Icons/icontexto-webdev-search-032x032.png"/>
-        </Button>
+        <TextBlock Text="{Binding WelcomeMessage}" MinWidth="150"/>
     </StackPanel>
 </UserControl>

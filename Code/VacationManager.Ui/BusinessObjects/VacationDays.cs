@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ServiceModel;
 using Csla;
 using VacationManager.Common.ServiceContracts;
 
@@ -50,11 +49,11 @@ namespace VacationManager.Ui.BusinessObjects
 
         #region DataPortal_XYZ methods
 
-        private void DataPortal_Fetch()
+        protected void DataPortal_Fetch(long employeeId)
         {
             using (var proxy = new ServiceProxy<IVacationDaysService>(Configuration.ServiceAddress))
             {
-                var createdServiceObject = proxy.GetChannel().GetVacationDays();
+                var createdServiceObject = proxy.GetChannel().GetVacationDaysByEmployeeId(employeeId);
 
                 _totalNumber = createdServiceObject.TotalNumber;
                 _taken = createdServiceObject.Taken;

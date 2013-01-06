@@ -3,6 +3,7 @@ using Caliburn.Micro;
 using Ninject;
 using VacationManager.Common.DataContracts;
 using VacationManager.Ui.BusinessObjects;
+using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
 
@@ -32,6 +33,9 @@ namespace VacationManager.Ui.Components.PendingRequests
 
         [Inject]
         public IDataService DataService { get; set; }
+
+        [Inject]
+        public IContextViewModel Context { get; set; }
 
         #endregion
 
@@ -82,7 +86,13 @@ namespace VacationManager.Ui.Components.PendingRequests
         {
             yield return UiService.ShowBusy();
 
-            var result = DataService.FetchList<VacationRequestInfoList, VacationRequest>(false);
+            var criteria = new VacationRequestSearchCriteriaDto
+            {
+                EmployeeId = Context.CurrentEmployee.Id, 
+                GetMine = false, 
+                States = new[] { VacationRequestState.Submitted },
+            };
+            var result = DataService.FetchList<VacationRequestInfoList, VacationRequest>(criteria);
             yield return result;
 
             yield return UiService.HideBusy();

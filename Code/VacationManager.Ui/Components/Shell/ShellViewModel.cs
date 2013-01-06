@@ -1,11 +1,12 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using Ninject;
+using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Components.Dashboard;
 using VacationManager.Ui.Components.MenuBar;
 using VacationManager.Ui.Components.MyRequests;
-using VacationManager.Ui.Components.Search;
 using VacationManager.Ui.Infrastructure;
+using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
 
 namespace VacationManager.Ui.Components.Shell
@@ -18,7 +19,7 @@ namespace VacationManager.Ui.Components.Shell
         public IMenuBarViewModel MenuBar { get; set; }
 
         [Inject]
-        public ISearchViewModel Search { get; set; }
+        public IContextViewModel Context { get; set; }
 
         [Inject]
         public IUiService UiService { get; set; }
@@ -39,17 +40,33 @@ namespace VacationManager.Ui.Components.Shell
         {
             base.OnInitialize();
 
-            LoadMenuBar();
+            TryInit().ExecuteSequential(this);
+        }
 
-            // launch dashboard on startup
-            Show<DashboardViewModel>().ExecuteSequential(this);
+        private IEnumerable<IResult> TryInit()
+        {
+            // TODO: thsi needs refactoring!
+            yield return new SequentialResult(Context.Populate().GetEnumerator());
+            if (Context.CurrentEmployee != null)
+            {
+                LoadMenuBar();
+
+                // launch dashboard on startup
+                yield return new SequentialResult(Show<DashboardViewModel>().GetEnumerator());
+            }
+            else
+            {
+                yield return UiService.ShowMessageBox(ShellStrings.UnregistredEmployeeMessage, GlobalStrings.ErrorCaption);
+
+                TryClose();
+            }
         }
 
         private void LoadMenuBar()
         {
             AddMenuItem<DashboardViewModel>(ShellStrings.DashboardMenuBarTitle, "Places-icon128.png");
             AddMenuItem<MyRequestsViewModel>(ShellStrings.MyRequestsMenuBarTitle, "Tasks-icon128.png");
-            MenuBar.Menus.Add(new Menu(ShellStrings.EmployeesMenuBarTitle, () => { }, Configuration.IconsPath + "Contacts-icon128.png"));
+            //MenuBar.Menus.Add(new Menu(ShellStrings.EmployeesMenuBarTitle, () => { }, Configuration.IconsPath + "Contacts-icon128.png"));
         }
 
         private void AddMenuItem<TViewModel>(string title, string iconFileName)

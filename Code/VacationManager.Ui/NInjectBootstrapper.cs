@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using Caliburn.Micro;
 using Ninject;
 using Ninject.Extensions.Conventions;
+using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Components.Shell;
 
 namespace VacationManager.Ui
@@ -25,6 +26,8 @@ namespace VacationManager.Ui
 
             _kernel.Bind<IShellViewModel>()
                 .To<ShellViewModel>().InSingletonScope();
+            _kernel.Bind<IContextViewModel>()
+                .To<ContextViewModel>().InSingletonScope();
 
             // scan services
             _kernel.Bind(scanner => scanner
@@ -44,7 +47,7 @@ namespace VacationManager.Ui
 
         private static bool IsViewModelType(Type type)
         {
-            return !type.Name.EndsWith("ShellViewModel") && !type.Name.EndsWith("Service");
+            return !type.Name.EndsWith("ShellViewModel") && !type.Name.EndsWith("ContextViewModel") && !type.Name.EndsWith("Service");
         }
 
         private static bool IsServiceType(Type type)

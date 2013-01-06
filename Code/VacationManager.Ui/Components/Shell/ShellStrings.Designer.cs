@@ -113,5 +113,14 @@ namespace VacationManager.Ui.Components.Shell {
                 return ResourceManager.GetString("MyRequestsMenuBarTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are not allowed to use application. There is no employee registred for your user..
+        /// </summary>
+        public static string UnregistredEmployeeMessage {
+            get {
+                return ResourceManager.GetString("UnregistredEmployeeMessage", resourceCulture);
+            }
+        }
     }
 }

@@ -12,10 +12,10 @@ namespace VacationManager.Common.DataContracts
         public long ManagerId { get; set; }
 
         [DataMember]
-        public string FirstName { get; set; }
+        public string Surname { get; set; }
 
         [DataMember]
-        public string SurnameName { get; set; }
+        public string Firstname { get; set; }
 
         [DataMember]
         public string EmailAddress { get; set; }

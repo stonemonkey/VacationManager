@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ServiceModel;
 using Csla;
 using VacationManager.Common.DataContracts;
 using VacationManager.Common.ServiceContracts;
@@ -15,7 +14,7 @@ namespace VacationManager.Ui.BusinessObjects
         private long _requestNumber;
         private DateTime _submissionDate;
         private VacationRequestState _stateId = VacationRequestState.Submitted;
-        private long _employeeId;
+        private string _employeeFullName;
 
         #endregion
 
@@ -30,8 +29,11 @@ namespace VacationManager.Ui.BusinessObjects
         public static PropertyInfo<VacationRequestState> StateIdProperty =
             RegisterProperty<VacationRequestState>(c => c.StateId, RelationshipTypes.PrivateField);
 
+        public static PropertyInfo<string> EmployeeFullNameProperty =
+            RegisterProperty<string>(c => c.EmployeeFullName, RelationshipTypes.PrivateField);
+
         public static PropertyInfo<long> EmployeeIdProperty =
-            RegisterProperty<long>(c => c.EmployeeId, RelationshipTypes.PrivateField);
+            RegisterProperty<long>(c => c.EmployeeId);
 
         public static PropertyInfo<List<DateTime>> VacationDaysProperty =
             RegisterProperty<List<DateTime>>(c => c.VacationDays);
@@ -60,9 +62,15 @@ namespace VacationManager.Ui.BusinessObjects
             get { return GetProperty(StateIdProperty, _stateId); }
         }
 
+        public string EmployeeFullName
+        {
+            get { return GetProperty(EmployeeFullNameProperty, _employeeFullName); }
+        }
+
         public long EmployeeId
         {
-            get { return GetProperty(EmployeeIdProperty, _employeeId); }
+            get { return GetProperty(EmployeeIdProperty); }
+            set { SetProperty(EmployeeIdProperty, value); }
         }
 
         public int NumberOfDays
@@ -89,7 +97,7 @@ namespace VacationManager.Ui.BusinessObjects
         /// <summary>
         /// Loads default values into current business object fields.
         /// </summary>
-        private void DataPortal_Create()
+        protected override void DataPortal_Create()
         {
             VacationDays = new List<DateTime>();
         }
@@ -100,13 +108,14 @@ namespace VacationManager.Ui.BusinessObjects
         /// somewhere but for the moment we assume it is not and deal wit it like transient.
         /// </summary>
         /// <param name="serviceObject">The source.</param>
-        private void DataPortal_Create(VacationRequestDto serviceObject)
+        protected void DataPortal_Create(VacationRequestDto serviceObject)
         {
             _requestNumber = serviceObject.RequestNumber;
             _submissionDate = serviceObject.CreationDate;
             _stateId = serviceObject.State;
-            _employeeId = serviceObject.EmployeeId;
-
+            _employeeFullName = serviceObject.EmployeeFullName;
+            
+            EmployeeId = serviceObject.EmployeeId;
             VacationDays = new List<DateTime>(serviceObject.VacationDays);
         }
 
@@ -114,11 +123,12 @@ namespace VacationManager.Ui.BusinessObjects
         /// Create new service object and persist it. For the moment we assume this
         /// means to submit a new vacation request.
         /// </summary>
-        private void DataPortal_Insert()
+        protected override void DataPortal_Insert()
         {
             var serviceObject = new VacationRequestDto
             {
                 State = VacationRequestState.Submitted,
+                EmployeeId = EmployeeId,
                 VacationDays = VacationDays,
             };
 
@@ -129,7 +139,10 @@ namespace VacationManager.Ui.BusinessObjects
                 _requestNumber = createdServiceObject.RequestNumber;
                 _submissionDate = createdServiceObject.CreationDate;
                 _stateId = createdServiceObject.State;
-                _employeeId = createdServiceObject.EmployeeId;
+                _employeeFullName = serviceObject.EmployeeFullName;
+
+                EmployeeId = createdServiceObject.EmployeeId;
+                VacationDays = createdServiceObject.VacationDays;
             }
         }
 
@@ -137,7 +150,7 @@ namespace VacationManager.Ui.BusinessObjects
         /// Remove service object having parameter id. For the moment we assume this 
         /// means to cancel a submitted request.
         /// </summary>
-        private void DataPortal_Delete(long id)
+        protected void DataPortal_Delete(long id)
         {
             using (var proxy = new ServiceProxy<IVacationRequestService>(Configuration.ServiceAddress))
             {

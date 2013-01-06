@@ -102,6 +102,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="BusinessObjects\ChangeVacationRequestStateCommand.cs" />
+    <Compile Include="BusinessObjects\Employee.cs" />
     <Compile Include="BusinessObjects\ServiceProxy.cs" />
     <Compile Include="BusinessObjects\VacationDays.cs" />
     <Compile Include="BusinessObjects\VacationRequest.cs" />
@@ -144,12 +145,12 @@
       <DependentUpon>PendingRequestsStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Components\PendingRequests\PendingRequestsViewModel.cs" />
-    <Compile Include="Components\Search\ISearchViewModel.cs" />
+    <Compile Include="Components\Context\IContextViewModel.cs" />
     <Compile Include="Components\EnumerableResultExtensions.cs" />
-    <Compile Include="Components\Search\SearchStrings.Designer.cs">
+    <Compile Include="Components\Context\ContextStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>SearchStrings.resx</DependentUpon>
+      <DependentUpon>ContextStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Components\VacationDays\VacationDaysStrings.Designer.cs">
       <DependentUpon>VacationDaysStrings.resx</DependentUpon>
@@ -208,7 +209,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Components\Search\SearchView.xaml">
+    <Page Include="Components\Context\ContextView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -225,10 +226,10 @@
       <DependentUpon>MenuBarView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\MenuBar\MenuBarViewModel.cs" />
-    <Compile Include="Components\Search\SearchView.xaml.cs">
-      <DependentUpon>SearchView.xaml</DependentUpon>
+    <Compile Include="Components\Context\ContextView.xaml.cs">
+      <DependentUpon>ContextView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\Search\SearchViewModel.cs" />
+    <Compile Include="Components\Context\ContextViewModel.cs" />
     <Compile Include="Components\Shell\IShellViewModel.cs" />
     <Compile Include="Components\Shell\ShellStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -278,9 +279,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PendingRequestsStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Components\Search\SearchStrings.resx">
+    <EmbeddedResource Include="Components\Context\ContextStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>SearchStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>ContextStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Components\Shell\ShellStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
