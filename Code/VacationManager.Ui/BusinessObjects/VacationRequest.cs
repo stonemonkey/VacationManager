@@ -172,6 +172,7 @@ namespace VacationManager.Ui.BusinessObjects
                 proxy.GetChannel().DeleteRequest(id);
             }
         }
+
         #endregion
     }
 }
