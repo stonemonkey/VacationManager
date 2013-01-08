@@ -117,4 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ExecutiveRole" xml:space="preserve">
+    <value>Executive</value>
+  </data>
+  <data name="HrRole" xml:space="preserve">
+    <value>Hr</value>
+  </data>
+  <data name="ManagerRole" xml:space="preserve">
+    <value>Manager</value>
+  </data>
+  <data name="RolesMessageFormat" xml:space="preserve">
+    <value>Your roles are: {0}</value>
+  </data>
+  <data name="WelcomeMessageFormat" xml:space="preserve">
+    <value>Hi, {0} {1}.</value>
+  </data>
 </root>

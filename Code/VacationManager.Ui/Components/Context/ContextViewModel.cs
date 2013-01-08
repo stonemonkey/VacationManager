@@ -12,6 +12,7 @@ namespace VacationManager.Ui.Components.Context
     {
         #region Private fields
 
+        private string _rolesMessage;
         private string _welcomeMessage;
         private Employee _currentEmployee;
 
@@ -37,6 +38,16 @@ namespace VacationManager.Ui.Components.Context
 
         #region Binding properties
 
+        public string RolesMessage
+        {
+            get { return _rolesMessage; } 
+            set 
+            { 
+                _rolesMessage = value;
+                NotifyOfPropertyChange(() => RolesMessage);
+            }
+        }
+
         public string WelcomeMessage
         {
             get { return _welcomeMessage; } 
@@ -47,6 +58,8 @@ namespace VacationManager.Ui.Components.Context
             }
         }
 
+        #endregion
+
         public Employee CurrentEmployee
         {
             get { return _currentEmployee; } 
@@ -55,20 +68,11 @@ namespace VacationManager.Ui.Components.Context
                 _currentEmployee = value;
                 if (_currentEmployee != null)
                 {
-                    // TODO: this needs refactoring!
-                    string message = string.Format("Hello {0} {1}. Roles:", _currentEmployee.Firstname, _currentEmployee.Surname);
-                    if ((_currentEmployee.Roles & EmployeeRoles.Executive) == EmployeeRoles.Executive)
-                        message += " " + EmployeeRoles.Executive.ToString();
-                    if ((_currentEmployee.Roles & EmployeeRoles.Manager) == EmployeeRoles.Manager)
-                        message += " " + EmployeeRoles.Manager.ToString();
-                    if ((_currentEmployee.Roles & EmployeeRoles.Hr) == EmployeeRoles.Hr)
-                        message += " " + EmployeeRoles.Hr.ToString();
-                    WelcomeMessage = message;
+                    RolesMessage = string.Format(ContextStrings.RolesMessageFormat, GetRoles());
+                    WelcomeMessage = string.Format(ContextStrings.WelcomeMessageFormat, _currentEmployee.Firstname, _currentEmployee.Surname);
                 }
             }
         }
-
-        #endregion
 
         public IEnumerable<IResult> Populate()
         {
@@ -77,7 +81,7 @@ namespace VacationManager.Ui.Components.Context
             // TODO: in future server should return employee determined by checking caller identity.
             // for the moment, in order to be able to test more easily we are specifying the id of 
             // the employee we consider to be the caller.
-            var result = DataService.Fetch<Employee>(1);
+            var result = DataService.Fetch<Employee>(5);
             yield return result;
 
             yield return UiService.HideBusy();
@@ -86,6 +90,20 @@ namespace VacationManager.Ui.Components.Context
                 CurrentEmployee = result.Result;
             else
                 yield return UiService.ShowMessageBox(result.Error.Message, GlobalStrings.ErrorCaption);
+        }
+
+        private string GetRoles()
+        {
+            var message = string.Empty;
+
+            if ((_currentEmployee.Roles & EmployeeRoles.Executive) == EmployeeRoles.Executive)
+                message += " " + ContextStrings.ExecutiveRole;
+            if ((_currentEmployee.Roles & EmployeeRoles.Manager) == EmployeeRoles.Manager)
+                message += " " + ContextStrings.ManagerRole;
+            if ((_currentEmployee.Roles & EmployeeRoles.Hr) == EmployeeRoles.Hr)
+                message += " " + ContextStrings.HrRole;
+
+            return message;
         }
     }
 }

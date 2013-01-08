@@ -59,5 +59,50 @@ namespace VacationManager.Ui.Components.Context {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Executive.
+        /// </summary>
+        public static string ExecutiveRole {
+            get {
+                return ResourceManager.GetString("ExecutiveRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hr.
+        /// </summary>
+        public static string HrRole {
+            get {
+                return ResourceManager.GetString("HrRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manager.
+        /// </summary>
+        public static string ManagerRole {
+            get {
+                return ResourceManager.GetString("ManagerRole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your roles are: {0}.
+        /// </summary>
+        public static string RolesMessageFormat {
+            get {
+                return ResourceManager.GetString("RolesMessageFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hi, {0} {1}..
+        /// </summary>
+        public static string WelcomeMessageFormat {
+            get {
+                return ResourceManager.GetString("WelcomeMessageFormat", resourceCulture);
+            }
+        }
     }
 }
