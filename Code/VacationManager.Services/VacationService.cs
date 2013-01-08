@@ -144,7 +144,7 @@ namespace VacationManager.Services
 
         private static IList<VacationDaysDto> BuildMockedVacationDays()
         {
-            return Builder<VacationDaysDto>.CreateListOfSize(2)
+            return Builder<VacationDaysDto>.CreateListOfSize(3)
                 .TheFirst(1)
                     .With(x => x.EmployeeId = 1) // Costin Morariu
                     .And(x => x.Year = 2012)
@@ -158,6 +158,13 @@ namespace VacationManager.Services
                     .And(x => x.TotalNumber = 25)
                     .And(x => x.Taken = 21)
                     .And(x => x.Left = 4)
+                    .And(x => x.Paid = 0)
+                .TheNext(1)
+                    .With(x => x.EmployeeId = 5) // Ioana Sandu
+                    .And(x => x.Year = 2012)
+                    .And(x => x.TotalNumber = 21)
+                    .And(x => x.Taken = 2)
+                    .And(x => x.Left = 19)
                     .And(x => x.Paid = 0)
                 .Build();
         }
@@ -174,38 +181,44 @@ namespace VacationManager.Services
             return Builder<EmployeeDto>.CreateListOfSize(6)
                 .All()
                     .With(x => x.Id = _uniqueEmployeeIdTestData++)
-                .TheFirst(1) // #1
-                    .With(x => x.Firstname = "Costin")
+                .TheFirst(1)
+                    .With(x => x.Id = 1)
+                    .And(x => x.Firstname = "Costin")
                     .And(x => x.Surname = "Morariu")
                     .And(x => x.EmailAddress = "costin.morariu@iquestgroup.com")
                     .And(x => x.Roles = EmployeeRoles.Executive)
                     .And(x => x.ManagerId = 2) // Mihai Barabas
-                .TheNext(1) // #2
-                    .With(x => x.Firstname = "Mihai")
+                .TheNext(1)
+                    .With(x => x.Id = 2)
+                    .And(x => x.Firstname = "Mihai")
                     .And(x => x.Surname = "Barabas")
                     .And(x => x.EmailAddress = "mihai.barabas@iquestgroup.com")
                     .And(x => x.Roles = (EmployeeRoles.Executive | EmployeeRoles.Manager))
                     .And(x => x.ManagerId = 3) // Top Manager
-                .TheNext(1) // #3
-                    .With(x => x.Firstname = "Top")
+                .TheNext(1)
+                    .With(x => x.Id = 3)
+                    .And(x => x.Firstname = "Top")
                     .And(x => x.Surname = "Manager")
                     .And(x => x.EmailAddress = "top.manager@iquestgroup.com")
                     .And(x => x.Roles = EmployeeRoles.Manager)
                     .And(x => x.ManagerId = 0) // does not have
-                .TheNext(1) // #4
-                    .With(x => x.Firstname = "Hr")
+                .TheNext(1)
+                    .With(x => x.Id = 4)
+                    .And(x => x.Firstname = "Hr")
                     .And(x => x.Surname = "Generic")
                     .And(x => x.EmailAddress = "hr_holidays@iquestgroup.com")
                     .And(x => x.Roles = EmployeeRoles.Hr)
                     .And(x => x.ManagerId = 0) // does not have
-                .TheNext(1) // #5
-                    .With(x => x.Firstname = "Ioana")
+                .TheNext(1)
+                    .With(x => x.Id = 5)
+                    .And(x => x.Firstname = "Ioana")
                     .And(x => x.Surname = "Sandu")
                     .And(x => x.EmailAddress = "ioana.sandu@iquestgroup.com")
                     .And(x => x.Roles = (EmployeeRoles.Executive | EmployeeRoles.Hr))
                     .And(x => x.ManagerId = 0) // does not have
-                .TheNext(1) // #6
-                    .With(x => x.Firstname = "Hr")
+                .TheNext(1)
+                    .With(x => x.Id = 6)
+                    .And(x => x.Firstname = "Hr")
                     .And(x => x.Surname = "Manager")
                     .And(x => x.EmailAddress = "Hr.Manager@iquestgroup.com")
                     .And(x => x.Roles = (EmployeeRoles.Executive | EmployeeRoles.Manager | EmployeeRoles.Hr))

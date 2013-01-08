@@ -88,8 +88,8 @@ namespace VacationManager.Ui.Components.PendingRequests
 
             var criteria = new VacationRequestSearchCriteriaDto
             {
-                EmployeeId = Context.CurrentEmployee.Id, 
                 GetMine = false, 
+                EmployeeId = Context.CurrentEmployee.Id, 
                 States = new[] { VacationRequestState.Submitted },
             };
             var result = DataService.FetchList<VacationRequestInfoList, VacationRequest>(criteria);

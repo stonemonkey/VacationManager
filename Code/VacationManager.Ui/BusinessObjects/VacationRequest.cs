@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using Csla;
 using VacationManager.Common.DataContracts;
 using VacationManager.Common.ServiceContracts;
@@ -88,6 +89,20 @@ namespace VacationManager.Ui.BusinessObjects
         {
             get { return GetProperty(VacationDaysProperty); }
             set { SetProperty(VacationDaysProperty, value); }
+        }
+        
+        public string Days
+        {
+            get
+            {
+                var days = new StringBuilder();
+                foreach (var d in VacationDays)
+                {
+                    days.Append(" ");
+                    days.Append(d.ToString("dd/MM"));
+                }
+                return days.ToString();
+            }
         }
 
         #endregion

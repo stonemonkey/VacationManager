@@ -81,7 +81,7 @@ namespace VacationManager.Ui.Components.Context
             // TODO: in future server should return employee determined by checking caller identity.
             // for the moment, in order to be able to test more easily we are specifying the id of 
             // the employee we consider to be the caller.
-            var result = DataService.Fetch<Employee>(5);
+            var result = DataService.Fetch<Employee>(2);
             yield return result;
 
             yield return UiService.HideBusy();
