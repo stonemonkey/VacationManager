@@ -3,15 +3,26 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:converters="clr-namespace:VacationManager.Ui.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <DockPanel>
-        <Expander Header="{Binding VacationDays.DisplayName}" IsExpanded="True" HorizontalAlignment="Left" DockPanel.Dock="Top">
+    <UserControl.Resources>
+        <converters:Bool2VisibilityConverter x:Key="Bool2Visibility"/>
+        <!--<converters:InvBool2VisibilityConverter x:Key="InvBool2Visibility"/>-->
+    </UserControl.Resources>
+    
+    <StackPanel>
+        <Expander Header="{Binding VacationDays.DisplayName}" IsExpanded="True" HorizontalAlignment="Left">
             <ContentControl x:Name="VacationDays"/>
         </Expander>
-        <Expander Header="{Binding PendingRequests.DisplayName}" IsExpanded="True" HorizontalAlignment="Left" DockPanel.Dock="Left">
+        <Expander Header="{Binding PendingRequests.DisplayName}" IsExpanded="True" HorizontalAlignment="Left"
+                  Visibility="{Binding Context.IsManager, Converter={StaticResource Bool2Visibility}}">
             <ContentControl x:Name="PendingRequests"/>
         </Expander>
-    </DockPanel>
+        <Expander Header="{Binding ApprovedRequests.DisplayName}" IsExpanded="True" HorizontalAlignment="Left"
+                  Visibility="{Binding Context.IsHr, Converter={StaticResource Bool2Visibility}}">
+            <ContentControl x:Name="ApprovedRequests"/>
+        </Expander>
+    </StackPanel>
 </UserControl>

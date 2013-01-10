@@ -82,7 +82,7 @@ namespace VacationManager.Services
 
             return _vacationRequestsTestData
                 .Where(x =>
-                    employeeIds.Contains(x.EmployeeId) &&
+                    ((criteria.EmployeeId == 0) || employeeIds.Contains(x.EmployeeId)) &&
                     ((criteria.States == null) || criteria.States.Contains(x.State)))
                 .OrderByDescending(x => x.CreationDate)
                 .ToList();

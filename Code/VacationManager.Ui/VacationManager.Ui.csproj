@@ -107,6 +107,15 @@
     <Compile Include="BusinessObjects\VacationDays.cs" />
     <Compile Include="BusinessObjects\VacationRequest.cs" />
     <Compile Include="BusinessObjects\VacationRequestInfoList.cs" />
+    <Compile Include="Components\ApprovedRequests\ApprovedRequestsViewModel.cs" />
+    <Compile Include="Components\ApprovedRequests\ApprovedRequestsStrings.Designer.cs">
+      <DependentUpon>ApprovedRequestsStrings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Components\ApprovedRequests\ApprovedRequestsView.xaml.cs">
+      <DependentUpon>ApprovedRequestsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\Dashboard\DashboardStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -185,6 +194,10 @@
     <Compile Include="Services\IDataService.cs" />
     <Compile Include="Services\IUiService.cs" />
     <Compile Include="Services\UiService.cs" />
+    <Page Include="Components\ApprovedRequests\ApprovedRequestsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Components\Dashboard\DashboardView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -263,6 +276,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Components\ApprovedRequests\ApprovedRequestsStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ApprovedRequestsStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Components\Dashboard\DashboardStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DashboardStrings.Designer.cs</LastGenOutput>

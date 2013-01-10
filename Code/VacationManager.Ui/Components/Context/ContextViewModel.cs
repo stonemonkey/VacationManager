@@ -74,6 +74,21 @@ namespace VacationManager.Ui.Components.Context
             }
         }
 
+        public bool IsExecutive
+        {
+            get { return (_currentEmployee.Roles & EmployeeRoles.Executive) == EmployeeRoles.Executive; }
+        }
+
+        public bool IsManager
+        {
+            get { return (_currentEmployee.Roles & EmployeeRoles.Manager) == EmployeeRoles.Manager; }
+        }
+        
+        public bool IsHr
+        {
+            get { return (_currentEmployee.Roles & EmployeeRoles.Hr) == EmployeeRoles.Hr; }
+        }
+
         public IEnumerable<IResult> Populate()
         {
             yield return UiService.ShowBusy();
@@ -96,11 +111,11 @@ namespace VacationManager.Ui.Components.Context
         {
             var message = string.Empty;
 
-            if ((_currentEmployee.Roles & EmployeeRoles.Executive) == EmployeeRoles.Executive)
+            if (IsExecutive)
                 message += " " + ContextStrings.ExecutiveRole;
-            if ((_currentEmployee.Roles & EmployeeRoles.Manager) == EmployeeRoles.Manager)
+            if (IsManager)
                 message += " " + ContextStrings.ManagerRole;
-            if ((_currentEmployee.Roles & EmployeeRoles.Hr) == EmployeeRoles.Hr)
+            if (IsHr)
                 message += " " + ContextStrings.HrRole;
 
             return message;

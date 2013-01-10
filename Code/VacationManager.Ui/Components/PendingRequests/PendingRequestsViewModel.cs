@@ -9,6 +9,7 @@ using VacationManager.Ui.Services;
 
 namespace VacationManager.Ui.Components.PendingRequests
 {
+    // TODO: extract common RequestsViewModelBase class see ApprovedRequestsViewModel and VacationRequestsViewModel
     public class PendingRequestsViewModel : Screen, IPopulableViewModel
     {
         #region Private fields
