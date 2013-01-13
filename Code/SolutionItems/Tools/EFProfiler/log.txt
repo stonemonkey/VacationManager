@@ -1,0 +1,13 @@
+2013-01-13 19:17:55,668 [1] DEBUG HibernatingRhinos.Profiler.Client.Host.ClientService [(null)] - Profiler initialized. Build: 2110
+2013-01-13 19:17:58,476 [1] DEBUG HibernatingRhinos.Profiler.Client.Host.ClientService [(null)] - Attempt to start HTTP listener
+2013-01-13 19:17:58,476 [1] DEBUG HibernatingRhinos.Profiler.Client.Host.ClientService [(null)] - HTTP listener started successfully
+2013-01-13 19:20:52,914 [1] DEBUG HibernatingRhinos.Profiler.Client.Host.ClientService [(null)] - Profiler initialized. Build: 2110
+2013-01-13 19:20:53,232 [1] DEBUG HibernatingRhinos.Profiler.Client.Host.ClientService [(null)] - Attempt to start HTTP listener
+2013-01-13 19:20:53,232 [1] DEBUG HibernatingRhinos.Profiler.Client.Host.ClientService [(null)] - HTTP listener started successfully
+2013-01-13 19:20:55,365 [8] WARN  Rhino.Licensing.AbstractLicenseValidator [(null)] - License expiration date is 02/13/2013 00:00:00
+2013-01-13 19:20:55,447 [8] DEBUG Rhino.Licensing.AbstractLicenseValidator [(null)] - License accepted for EntityFramework Profiler
+2013-01-13 19:20:55,451 [5] INFO  HibernatingRhinos.Profiler.Client.Infrastructure.AutoUpdate.ProfilerAutoUpdate [(null)] - Checking for updates...
+2013-01-13 19:20:55,499 [8] DEBUG Rhino.Licensing.AbstractLicenseValidator [(null)] - License accepted for EntityFramework Profiler
+2013-01-13 19:20:56,523 [7] ERROR HibernatingRhinos.Profiler.Client.Infrastructure.AutoUpdate.ProfilerAutoUpdate [(null)] - Error while checking for updates: System.NullReferenceException: Object reference not set to an instance of an object.
+   at NAppUpdate.Framework.UpdateManager.CheckForUpdates(IUpdateSource source, Action`1 callback) in z:\Projects\NAppUpdate\src\NAppUpdate.Framework\UpdateManager.cs:line 133
+   at NAppUpdate.Framework.UpdateManager.<>c__DisplayClass2.<CheckForUpdateAsync>b__1() in z:\Projects\NAppUpdate\src\NAppUpdate.Framework\UpdateManager.cs:line 175
