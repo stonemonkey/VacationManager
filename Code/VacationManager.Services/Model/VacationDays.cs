@@ -1,10 +1,13 @@
-﻿namespace VacationManager.Services.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace VacationManager.Services.Model
 {
     public class VacationDays
     {
+        [Key]
         public long Id { get; set; }
 
-        public long Employee { get; set; }
+        public Employee Employee { get; set; }
 
         public int Year { get; set; }
 

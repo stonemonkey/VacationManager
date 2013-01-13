@@ -8,8 +8,6 @@ namespace VacationManager.Services.Model
         [Key]
         public long Id { get; set; }
         
-        //public Employee Manager { get; set; }
-
         public string Surname { get; set; }
 
         public string Firstname { get; set; }
@@ -17,5 +15,7 @@ namespace VacationManager.Services.Model
         public string EmailAddress { get; set; }
 
         public EmployeeRoles Roles { get; set; }
+
+        public virtual Employee Manager { get; set; }
     }
 }
