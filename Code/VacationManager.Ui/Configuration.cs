@@ -8,6 +8,6 @@
         
         public const string IconsPath = ResourcesPath + "Icons/";
 
-        public const long CurrentEmployeeId = 5;
+        public const long CurrentEmployeeId = 2;
     }
 }

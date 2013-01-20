@@ -8,7 +8,7 @@ namespace VacationManager.Common.ServiceContracts
     public interface IVacationRequestService
     {
         [OperationContract]
-        VacationRequestDto CreateRequest(VacationRequestDto request);
+        VacationRequestDto CreateRequest(VacationRequestDto requestDto);
 
         [OperationContract]
         void ChangeRequestState(long id, VacationRequestState toState);
