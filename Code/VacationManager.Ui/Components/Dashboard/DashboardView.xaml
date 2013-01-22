@@ -13,8 +13,8 @@
     </UserControl.Resources>
     
     <StackPanel>
-        <Expander Header="{Binding VacationDays.DisplayName}" IsExpanded="True" HorizontalAlignment="Left">
-            <ContentControl x:Name="VacationDays"/>
+        <Expander Header="{Binding VacationStatus.DisplayName}" IsExpanded="True" HorizontalAlignment="Left">
+            <ContentControl x:Name="VacationStatus"/>
         </Expander>
         <Expander Header="{Binding PendingRequests.DisplayName}" IsExpanded="True" HorizontalAlignment="Left"
                   Visibility="{Binding Context.IsManager, Converter={StaticResource Bool2Visibility}}">

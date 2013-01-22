@@ -7,7 +7,15 @@ create table [dbo].[Employees] (
     [Manager_Id] [bigint] null,
     primary key ([Id])
 );
-create table [dbo].[VacationDays] (
+create table [dbo].[VacationRequests] (
+    [RequestNumber] [bigint] not null identity,
+    [CreationDate] [datetime] not null,
+    [State] [int] not null,
+    [VacationDays] [nvarchar](max) null,
+    [Employee_Id] [bigint] not null,
+    primary key ([RequestNumber])
+);
+create table [dbo].[VacationStatus] (
     [Id] [bigint] not null identity,
     [Year] [int] not null,
     [Paid] [int] not null,
@@ -17,14 +25,6 @@ create table [dbo].[VacationDays] (
     [Employee_Id] [bigint] not null,
     primary key ([Id])
 );
-create table [dbo].[VacationRequests] (
-    [RequestNumber] [bigint] not null identity,
-    [CreationDate] [datetime] not null,
-    [State] [int] not null,
-    [VacationDays] [nvarchar](max) null,
-    [Employee_Id] [bigint] not null,
-    primary key ([RequestNumber])
-);
 alter table [dbo].[Employees] add constraint [Employee_Manager] foreign key ([Manager_Id]) references [dbo].[Employees]([Id]);
-alter table [dbo].[VacationDays] add constraint [VacationDays_Employee] foreign key ([Employee_Id]) references [dbo].[Employees]([Id]) on delete cascade;
 alter table [dbo].[VacationRequests] add constraint [VacationRequest_Employee] foreign key ([Employee_Id]) references [dbo].[Employees]([Id]) on delete cascade;
+alter table [dbo].[VacationStatus] add constraint [VacationStatus_Employee] foreign key ([Employee_Id]) references [dbo].[Employees]([Id]) on delete cascade;

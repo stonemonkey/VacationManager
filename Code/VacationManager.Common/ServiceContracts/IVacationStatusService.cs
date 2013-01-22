@@ -4,9 +4,9 @@ using VacationManager.Common.DataContracts;
 namespace VacationManager.Common.ServiceContracts
 {
     [ServiceContract]
-    public interface IVacationDaysService
+    public interface IVacationStatusService
     {
         [OperationContract]
-        VacationDaysDto GetVacationDaysByEmployeeId(long employeeId);
+        VacationStatusDto GetVacationStatusByEmployeeId(long employeeId);
     }
 }

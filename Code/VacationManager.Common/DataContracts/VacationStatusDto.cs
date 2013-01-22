@@ -3,7 +3,7 @@
 namespace VacationManager.Common.DataContracts
 {
     [DataContract]
-    public class VacationDaysDto
+    public class VacationStatusDto
     {
         [DataMember]
         public long EmployeeId { get; set; }

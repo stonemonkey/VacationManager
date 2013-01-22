@@ -8,7 +8,7 @@ using VacationManager.Services.Model;
 namespace VacationManager.Services
 {
     public class VacationService : 
-        IVacationRequestService, IVacationDaysService, IEmployeeService
+        IVacationRequestService, IVacationStatusService, IEmployeeService
     {
         public VacationService()
         {
@@ -29,7 +29,7 @@ namespace VacationManager.Services
                         string.Format("New request is associated with inexistent employee having id {0}.", requestDto.EmployeeId));
 
                 var numberOfVacationDays = requestDto.VacationDays.Count();
-                var numberOfVacationDaysLeft = ctx.VacationDays.Single(x => x.Employee.Id == requestDto.EmployeeId).Left;
+                var numberOfVacationDaysLeft = ctx.VacationStatus.Single(x => x.Employee.Id == requestDto.EmployeeId).Left;
                 if ((numberOfVacationDays < 1) || (numberOfVacationDays > numberOfVacationDaysLeft))
                     throw new ApplicationException(
                         string.Format("New request has invalid number of vacation days {0}. Must greather than 0 and less or equal than days left {1}.", numberOfVacationDays, numberOfVacationDays));
@@ -104,15 +104,15 @@ namespace VacationManager.Services
             return vacationRequestDtos;
         }
 
-        public VacationDaysDto GetVacationDaysByEmployeeId(long employeeId)
+        public VacationStatusDto GetVacationStatusByEmployeeId(long employeeId)
         {
-            VacationDaysDto vacationDaysDto;
+            VacationStatusDto vacationStatusDto;
             using (var ctx = new VacationManagerContext())
             {
-                var vacationDays = ctx.VacationDays.FirstOrDefault(x => x.Employee.Id == employeeId);
-                vacationDaysDto = vacationDays.ToDto();
+                var vacationDays = ctx.VacationStatus.FirstOrDefault(x => x.Employee.Id == employeeId);
+                vacationStatusDto = vacationDays.ToDto();
             }
-            return vacationDaysDto;
+            return vacationStatusDto;
         }
 
         public EmployeeDto GetEmployeeById(long id)

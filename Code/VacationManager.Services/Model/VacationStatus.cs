@@ -3,7 +3,7 @@ using VacationManager.Common.DataContracts;
 
 namespace VacationManager.Services.Model
 {
-    public class VacationDays
+    public class VacationStatus
     {
         [Key]
         public long Id { get; set; }
@@ -21,21 +21,21 @@ namespace VacationManager.Services.Model
         public virtual Employee Employee { get; set; }
     }
 
-    public static class VacationDaysExtensions
+    public static class VacationStatusExtensions
     {
-        public static VacationDaysDto ToDto(this VacationDays vacationDays)
+        public static VacationStatusDto ToDto(this VacationStatus vacationStatus)
         {
-            if (vacationDays == null)
+            if (vacationStatus == null)
                 return null;
 
-            return new VacationDaysDto
+            return new VacationStatusDto
             {
-                Year = vacationDays.Year,
-                Paid = vacationDays.Paid,
-                Left = vacationDays.Left,
-                Taken = vacationDays.Taken,
-                TotalNumber = vacationDays.TotalNumber,
-                EmployeeId = vacationDays.Employee.Id,
+                Year = vacationStatus.Year,
+                Paid = vacationStatus.Paid,
+                Left = vacationStatus.Left,
+                Taken = vacationStatus.Taken,
+                TotalNumber = vacationStatus.TotalNumber,
+                EmployeeId = vacationStatus.Employee.Id,
             };
         }
     }

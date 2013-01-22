@@ -5,7 +5,7 @@ using VacationManager.Common.ServiceContracts;
 namespace VacationManager.Ui.BusinessObjects
 {
     [Serializable]
-    public class VacationDays : BusinessBase<VacationDays>
+    public class VacationStatus : BusinessBase<VacationStatus>
     {
         #region Private fields
 
@@ -51,9 +51,9 @@ namespace VacationManager.Ui.BusinessObjects
 
         protected void DataPortal_Fetch(long employeeId)
         {
-            using (var proxy = new ServiceProxy<IVacationDaysService>(Configuration.ServiceAddress))
+            using (var proxy = new ServiceProxy<IVacationStatusService>(Configuration.ServiceAddress))
             {
-                var createdServiceObject = proxy.GetChannel().GetVacationDaysByEmployeeId(employeeId);
+                var createdServiceObject = proxy.GetChannel().GetVacationStatusByEmployeeId(employeeId);
 
                 _totalNumber = createdServiceObject.TotalNumber;
                 _taken = createdServiceObject.Taken;

@@ -104,7 +104,7 @@
     <Compile Include="BusinessObjects\ChangeVacationRequestStateCommand.cs" />
     <Compile Include="BusinessObjects\Employee.cs" />
     <Compile Include="BusinessObjects\ServiceProxy.cs" />
-    <Compile Include="BusinessObjects\VacationDays.cs" />
+    <Compile Include="BusinessObjects\VacationStatus.cs" />
     <Compile Include="BusinessObjects\VacationRequest.cs" />
     <Compile Include="BusinessObjects\VacationRequestInfoList.cs" />
     <Compile Include="Components\ApprovedRequests\ApprovedRequestsViewModel.cs" />
@@ -161,15 +161,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ContextStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Components\VacationDays\VacationDaysStrings.Designer.cs">
-      <DependentUpon>VacationDaysStrings.resx</DependentUpon>
+    <Compile Include="Components\VacationStatus\VacationStatusStrings.Designer.cs">
+      <DependentUpon>VacationStatusStrings.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Components\VacationDays\VacationDaysView.xaml.cs">
-      <DependentUpon>VacationDaysView.xaml</DependentUpon>
+    <Compile Include="Components\VacationStatus\VacationStatusView.xaml.cs">
+      <DependentUpon>VacationStatusView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\VacationDays\VacationDaysViewModel.cs" />
+    <Compile Include="Components\VacationStatus\VacationStatusViewModel.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Controls\VmCalendar.cs" />
     <Compile Include="Converters\Bool2VisibilityConverter.cs" />
@@ -256,7 +256,7 @@
     <Compile Include="Infrastructure\Menu.cs" />
     <Compile Include="Infrastructure\MenuCollection.cs" />
     <Compile Include="Infrastructure\RelayCommand.cs" />
-    <Page Include="Components\VacationDays\VacationDaysView.xaml">
+    <Page Include="Components\VacationStatus\VacationStatusView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -304,9 +304,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ShellStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Components\VacationDays\VacationDaysStrings.resx">
+    <EmbeddedResource Include="Components\VacationStatus\VacationStatusStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>VacationDaysStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>VacationStatusStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -5,17 +5,17 @@ using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
 
-namespace VacationManager.Ui.Components.VacationDays
+namespace VacationManager.Ui.Components.VacationStatus
 {
-    public class VacationDaysViewModel : Screen, IPopulableViewModel
+    public class VacationStatusViewModel : Screen, IPopulableViewModel
     {
-        private BusinessObjects.VacationDays _item;
+        private BusinessObjects.VacationStatus _item;
 
-        public static VacationDaysStrings Localization
+        public static VacationStatusStrings Localization
         {
             get
             {
-                return new VacationDaysStrings();
+                return new VacationStatusStrings();
             }
         }
 
@@ -34,7 +34,7 @@ namespace VacationManager.Ui.Components.VacationDays
 
         #region Binding properties
 
-        public BusinessObjects.VacationDays Item
+        public BusinessObjects.VacationStatus Item
         {
             get { return _item; }
             set
@@ -46,9 +46,9 @@ namespace VacationManager.Ui.Components.VacationDays
 
         #endregion
 
-        public VacationDaysViewModel()
+        public VacationStatusViewModel()
         {
-            DisplayName = VacationDaysStrings.Title;
+            DisplayName = VacationStatusStrings.Title;
         }
 
         #region Actions
@@ -57,7 +57,7 @@ namespace VacationManager.Ui.Components.VacationDays
         {
             yield return UiService.ShowBusy();
 
-            var result = DataService.Fetch<BusinessObjects.VacationDays>(Context.CurrentEmployee.Id);
+            var result = DataService.Fetch<BusinessObjects.VacationStatus>(Context.CurrentEmployee.Id);
             yield return result;
 
             yield return UiService.HideBusy();

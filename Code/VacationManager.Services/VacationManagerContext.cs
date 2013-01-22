@@ -12,12 +12,12 @@ namespace VacationManager.Services
     {
         public DbSet<Employee> Employees { get; set; }
         public DbSet<VacationRequest> Requests { get; set; }
-        public DbSet<VacationDays> VacationDays { get; set; }
+        public DbSet<VacationStatus> VacationStatus { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new VacationRequestConfiguration());
-            modelBuilder.Configurations.Add(new VacationDaysConfiguration());
+            modelBuilder.Configurations.Add(new VacationStatusConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }
@@ -30,8 +30,8 @@ namespace VacationManager.Services
             var employees = BuildEmployees(); 
             employees.ForEach(e => context.Employees.Add(e));
 
-            var vacationDays = BuildVacationDays(employees);
-            vacationDays.ForEach(vd => context.VacationDays.Add(vd));
+            var vacationDays = BuildVacationStatuses(employees);
+            vacationDays.ForEach(vd => context.VacationStatus.Add(vd));
 
             var vacationRequests = BuildVacationRequests(employees);
             vacationRequests.ForEach(vr => context.Requests.Add(vr));
@@ -53,18 +53,18 @@ namespace VacationManager.Services
             };
         }
 
-        private static List<VacationDays> BuildVacationDays(List<Employee> employees)
+        private static List<VacationStatus> BuildVacationStatuses(List<Employee> employees)
         {
             var ioana = employees.Single(x => x.Firstname == "Ioana");
             var mihai = employees.Single(x => x.Firstname == "Mihai");
             var costin = employees.Single(x => x.Firstname == "Costin");
             var daniel = employees.Single(x => x.Firstname == "Daniel");
-            return new List<VacationDays>
+            return new List<VacationStatus>
             {
-                new VacationDays { Employee = ioana, TotalNumber = 21, Taken = 0, Left = 21, Paid = 0, Year = 2013, },
-                new VacationDays { Employee = mihai, TotalNumber = 28, Taken = 0, Left = 28, Paid = 0, Year = 2013, },
-                new VacationDays { Employee = costin, TotalNumber = 21, Taken = 4, Left = 17, Paid = 0, Year = 2013, },
-                new VacationDays { Employee = daniel, TotalNumber = 21, Taken = 1, Left = 20, Paid = 0, Year = 2013, },
+                new VacationStatus { Employee = ioana, TotalNumber = 21, Taken = 0, Left = 21, Paid = 0, Year = 2013, },
+                new VacationStatus { Employee = mihai, TotalNumber = 28, Taken = 0, Left = 28, Paid = 0, Year = 2013, },
+                new VacationStatus { Employee = costin, TotalNumber = 21, Taken = 4, Left = 17, Paid = 0, Year = 2013, },
+                new VacationStatus { Employee = daniel, TotalNumber = 21, Taken = 1, Left = 20, Paid = 0, Year = 2013, },
             };
         }
 
@@ -88,9 +88,9 @@ namespace VacationManager.Services
         }
     }
 
-    public class VacationDaysConfiguration : EntityTypeConfiguration<VacationDays>
+    public class VacationStatusConfiguration : EntityTypeConfiguration<VacationStatus>
     {
-        public VacationDaysConfiguration()
+        public VacationStatusConfiguration()
         {
             HasRequired(x => x.Employee);
         }

@@ -49,7 +49,7 @@
   <ItemGroup>
     <Compile Include="VacationManagerContext.cs" />
     <Compile Include="Model\Employee.cs" />
-    <Compile Include="Model\VacationDays.cs" />
+    <Compile Include="Model\VacationStatus.cs" />
     <Compile Include="Model\VacationRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VacationService.cs" />
