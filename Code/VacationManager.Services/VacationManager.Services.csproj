@@ -34,23 +34,17 @@
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="FizzWare.NBuilder">
-      <HintPath>..\packages\NBuilder.3.0.1.1\lib\FizzWare.NBuilder.dll</HintPath>
-    </Reference>
     <Reference Include="HibernatingRhinos.Profiler.Appender">
       <HintPath>..\SolutionItems\Tools\EFProfiler\HibernatingRhinos.Profiler.Appender.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data.Entity" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="VacationManagerContext.cs" />
-    <Compile Include="Model\Employee.cs" />
-    <Compile Include="Model\VacationStatus.cs" />
-    <Compile Include="Model\VacationRequest.cs" />
+    <Compile Include="Extensions\EmployeeExtensions.cs" />
+    <Compile Include="Extensions\VacationRequestDtoExtensions.cs" />
+    <Compile Include="Extensions\VacationRequestExtensions.cs" />
+    <Compile Include="Extensions\VacationStatusExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VacationService.cs" />
   </ItemGroup>
@@ -58,6 +52,10 @@
     <ProjectReference Include="..\VacationManager.Common\VacationManager.Common.csproj">
       <Project>{17e37395-274b-4ac5-9601-1e4205c11457}</Project>
       <Name>VacationManager.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VacationManager.Persistence\VacationManager.Persistence.csproj">
+      <Project>{6fbef26b-37ec-4237-8d1a-37e6a1e7636c}</Project>
+      <Name>VacationManager.Persistence</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

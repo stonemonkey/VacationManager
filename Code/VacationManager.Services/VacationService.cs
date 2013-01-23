@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using VacationManager.Common.DataContracts;
 using VacationManager.Common.ServiceContracts;
-using VacationManager.Services.Model;
+using VacationManager.Persistence;
+using VacationManager.Services.Extensions;
 
 namespace VacationManager.Services
 {
@@ -34,7 +35,7 @@ namespace VacationManager.Services
                     throw new ApplicationException(
                         string.Format("New request has invalid number of vacation days {0}. Must greather than 0 and less or equal than days left {1}.", numberOfVacationDays, numberOfVacationDays));
 
-                var request = requestDto.ToEntity(employee);
+                var request = requestDto.ToModel(employee);
                 ctx.Requests.Add(request);
                 ctx.SaveChanges();
 
