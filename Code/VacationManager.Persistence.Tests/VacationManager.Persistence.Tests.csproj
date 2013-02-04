@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="VacationManagerContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VacationManagerInitializer.cs" />
     <Compile Include="VacationManagerModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

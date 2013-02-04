@@ -46,7 +46,6 @@
     <Compile Include="Model\VacationStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VacationManagerContext.cs" />
-    <Compile Include="VacationManagerInitializer.cs" />
     <Compile Include="Configurations\VacationRequestConfiguration.cs" />
     <Compile Include="Configurations\VacationStatusConfiguration.cs" />
   </ItemGroup>

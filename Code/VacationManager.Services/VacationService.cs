@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using VacationManager.Common.DataContracts;
 using VacationManager.Common.ServiceContracts;
 using VacationManager.Persistence;
@@ -8,6 +9,7 @@ using VacationManager.Services.Extensions;
 
 namespace VacationManager.Services
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
     public class VacationService : 
         IVacationRequestService, IVacationStatusService, IEmployeeService
     {
