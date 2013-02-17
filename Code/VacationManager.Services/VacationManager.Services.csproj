@@ -42,6 +42,9 @@
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
+      <Link>SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Extensions\EmployeeExtensions.cs" />
     <Compile Include="Extensions\VacationRequestDtoExtensions.cs" />
     <Compile Include="Extensions\VacationRequestExtensions.cs" />

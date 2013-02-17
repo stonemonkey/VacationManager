@@ -10,19 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VacationManager.IISHost", "VacationManager.IISHost\VacationManager.IISHost.csproj", "{922978F1-26A7-4924-90F2-5597145FF562}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{7283362D-B8A7-4EC8-B497-53BE49BF568A}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{77ECE2D0-F5DE-4A9B-AC85-AAE00E576C68}"
-EndProject
-Project("{911E67C6-3D85-4FCE-B560-20A9C3E3FF48}") = "NuGet", "SolutionItems\Tools\NuGet.exe", "{A421E36B-CFF3-42BE-AD45-9869977279CA}"
-	ProjectSection(DebuggerProjectSystem) = preProject
-		PortSupplier = 00000000-0000-0000-0000-000000000000
-		Executable = D:\Proiecte\GIT\VacationManager\Code\SolutionItems\Tools\NuGet.exe
-		RemoteMachine = CMORARIU8-LT
-		StartingDirectory = D:\Proiecte\GIT\VacationManager\Code\SolutionItems\Tools
-		Environment = Default
-		LaunchingEngine = 00000000-0000-0000-0000-000000000000
-		LaunchSQLEngine = No
-		AttachLaunchAction = No
+	ProjectSection(SolutionItems) = preProject
+		SolutionItems\SharedAssemblyInfo.cs = SolutionItems\SharedAssemblyInfo.cs
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VacationManager.Persistence", "VacationManager.Persistence\VacationManager.Persistence.csproj", "{6FBEF26B-37EC-4237-8D1A-37E6A1E7636C}"
@@ -81,12 +70,6 @@ Global
 		{922978F1-26A7-4924-90F2-5597145FF562}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{922978F1-26A7-4924-90F2-5597145FF562}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{922978F1-26A7-4924-90F2-5597145FF562}.Release|x86.ActiveCfg = Release|Any CPU
-		{A421E36B-CFF3-42BE-AD45-9869977279CA}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{A421E36B-CFF3-42BE-AD45-9869977279CA}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{A421E36B-CFF3-42BE-AD45-9869977279CA}.Debug|x86.ActiveCfg = Debug|x86
-		{A421E36B-CFF3-42BE-AD45-9869977279CA}.Release|Any CPU.ActiveCfg = Debug|x86
-		{A421E36B-CFF3-42BE-AD45-9869977279CA}.Release|Mixed Platforms.ActiveCfg = Debug|x86
-		{A421E36B-CFF3-42BE-AD45-9869977279CA}.Release|x86.ActiveCfg = Debug|x86
 		{6FBEF26B-37EC-4237-8D1A-37E6A1E7636C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6FBEF26B-37EC-4237-8D1A-37E6A1E7636C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FBEF26B-37EC-4237-8D1A-37E6A1E7636C}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -120,9 +103,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{77ECE2D0-F5DE-4A9B-AC85-AAE00E576C68} = {7283362D-B8A7-4EC8-B497-53BE49BF568A}
-		{A421E36B-CFF3-42BE-AD45-9869977279CA} = {77ECE2D0-F5DE-4A9B-AC85-AAE00E576C68}
 	EndGlobalSection
 EndGlobal

@@ -41,6 +41,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
+      <Link>SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="Model\Employee.cs" />
     <Compile Include="Model\VacationRequest.cs" />
     <Compile Include="Model\VacationStatus.cs" />
@@ -51,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Misc\setup-db.ps1" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -59,6 +63,13 @@
       <Name>VacationManager.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Misc\CleanupDatabase.sql" />
+    <Content Include="Updates\updates_00.000\update_00.000.001.sql" />
+    <Content Include="Updates\_template_update.sql" />
+    <Content Include="Updates\_test_data.sql" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

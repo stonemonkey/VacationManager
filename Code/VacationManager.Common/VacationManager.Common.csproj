@@ -37,6 +37,9 @@
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
+      <Link>SharedAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="DataContracts\EmployeeDto.cs" />
     <Compile Include="DataContracts\EmployeeRoles.cs" />
     <Compile Include="DataContracts\VacationRequestSearchCriteriaDto.cs" />
