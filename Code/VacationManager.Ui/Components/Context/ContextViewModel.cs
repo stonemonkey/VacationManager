@@ -76,17 +76,17 @@ namespace VacationManager.Ui.Components.Context
 
         public bool IsExecutive
         {
-            get { return (_currentEmployee.Roles & EmployeeRoles.Executive) == EmployeeRoles.Executive; }
+            get { return _currentEmployee.IsIn(EmployeeRoles.Executive); }
         }
 
         public bool IsManager
         {
-            get { return (_currentEmployee.Roles & EmployeeRoles.Manager) == EmployeeRoles.Manager; }
+            get { return _currentEmployee.IsIn(EmployeeRoles.Manager); }
         }
         
         public bool IsHr
         {
-            get { return (_currentEmployee.Roles & EmployeeRoles.Hr) == EmployeeRoles.Hr; }
+            get { return _currentEmployee.IsIn(EmployeeRoles.Hr); }
         }
 
         public IEnumerable<IResult> Populate()

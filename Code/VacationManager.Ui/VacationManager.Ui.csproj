@@ -89,7 +89,9 @@
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="BusinessObjects\ChangeVacationRequestStateCommand.cs" />
+    <Compile Include="BusinessObjects\EmployeeInfoList.cs" />
     <Compile Include="BusinessObjects\Employee.cs" />
+    <Compile Include="BusinessObjects\EmployeeExtensions.cs" />
     <Compile Include="BusinessObjects\ServiceProxy.cs" />
     <Compile Include="BusinessObjects\VacationStatus.cs" />
     <Compile Include="BusinessObjects\VacationRequest.cs" />
@@ -112,6 +114,12 @@
     <Compile Include="Components\Dashboard\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\Employees\EmployeesStrings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmployeesStrings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Employees\EmployeesViewModel.cs" />
     <Compile Include="Components\IPopulableViewModel.cs" />
     <Compile Include="Components\IExplorerViewModel.cs" />
     <Compile Include="Components\MyRequests\MyRequestDetailsView.xaml.cs">
@@ -270,6 +278,10 @@
     <EmbeddedResource Include="Components\Dashboard\DashboardStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>DashboardStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Components\Employees\EmployeesStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>EmployeesStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Components\MyRequests\MyRequestDetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

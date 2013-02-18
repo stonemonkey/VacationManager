@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using Ninject;
+using VacationManager.Common.DataContracts;
+using VacationManager.Ui.BusinessObjects;
 using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Components.Dashboard;
+using VacationManager.Ui.Components.Employees;
 using VacationManager.Ui.Components.MenuBar;
 using VacationManager.Ui.Components.MyRequests;
 using VacationManager.Ui.Infrastructure;
@@ -45,7 +48,7 @@ namespace VacationManager.Ui.Components.Shell
 
         private IEnumerable<IResult> TryInit()
         {
-            // TODO: thsi needs refactoring!
+            // TODO: this needs refactoring!
             yield return new SequentialResult(Context.Populate().GetEnumerator());
             if (Context.CurrentEmployee != null)
             {
@@ -66,7 +69,9 @@ namespace VacationManager.Ui.Components.Shell
         {
             AddMenuItem<DashboardViewModel>(ShellStrings.DashboardMenuBarTitle, "Places-icon128.png");
             AddMenuItem<MyRequestsViewModel>(ShellStrings.MyRequestsMenuBarTitle, "Tasks-icon128.png");
-            //MenuBar.Menus.Add(new Menu(ShellStrings.EmployeesMenuBarTitle, () => { }, Configuration.IconsPath + "Contacts-icon128.png"));
+            
+            if (Context.IsHr)
+                AddMenuItem<EmployeesViewModel>(ShellStrings.EmployeesMenuBarTitle, "Contacts-icon128.png");
         }
 
         private void AddMenuItem<TViewModel>(string title, string iconFileName)

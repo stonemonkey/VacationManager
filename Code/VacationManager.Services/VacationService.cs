@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
-using System.Threading;
 using VacationManager.Common.DataContracts;
 using VacationManager.Common.ServiceContracts;
 using VacationManager.Persistence;
@@ -27,6 +26,7 @@ namespace VacationManager.Services
             _ctx.Dispose();
         }
 
+        [Inspector]
         public VacationRequestDto CreateRequest(VacationRequestDto requestDto)
         {
             if (requestDto == null)
@@ -110,9 +110,6 @@ namespace VacationManager.Services
 
         public EmployeeDto GetEmployeeById(long id)
         {
-            // just checking if we have here the caller identity for some future automatic detection of the user calling the service
-            var userName = Thread.CurrentPrincipal.Identity.Name;
-
             var employee = _ctx.Employees.Find(id);
             
             var employeeDto = employee.ToDto();

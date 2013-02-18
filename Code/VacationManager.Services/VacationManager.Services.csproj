@@ -49,6 +49,7 @@
     <Compile Include="Extensions\VacationRequestDtoExtensions.cs" />
     <Compile Include="Extensions\VacationRequestExtensions.cs" />
     <Compile Include="Extensions\VacationStatusExtensions.cs" />
+    <Compile Include="Inspector.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VacationService.cs" />
   </ItemGroup>
