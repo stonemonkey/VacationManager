@@ -3,6 +3,8 @@ VacationManager
 
 Application for dealing with vacation days requests, approvals etc ...
 
+This was started as homework for WCF class, I was also trying to get my fingers wet on EntityFramework code first.
+
 To run this project you need:
 - MS Visual Studio 2012 (.NET 4.5);
 - IIS or IISExpress 8.0 (.NET 4.0);
