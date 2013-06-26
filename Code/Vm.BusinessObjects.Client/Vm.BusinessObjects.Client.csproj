@@ -45,22 +45,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Vm.BusinessObjects.Server\Employees\Employee.cs">
+    <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
+      <Link>SharedAssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Vm.BusinessObjects\Employees\Employee.cs">
       <Link>Employees\Employee.cs</Link>
     </Compile>
-    <Compile Include="..\Vm.BusinessObjects.Server\Employees\EmployeeInfoList.cs">
+    <Compile Include="..\Vm.BusinessObjects\Employees\EmployeeInfoList.cs">
       <Link>Employees\EmployeeInfoList.cs</Link>
     </Compile>
-    <Compile Include="..\Vm.BusinessObjects.Server\VacationRequests\ChangeVacationRequestStateCommand.cs">
+    <Compile Include="..\Vm.BusinessObjects\VacationRequests\ChangeVacationRequestStateCommand.cs">
       <Link>VacationRequests\ChangeVacationRequestStateCommand.cs</Link>
     </Compile>
-    <Compile Include="..\Vm.BusinessObjects.Server\VacationRequests\VacationRequest.cs">
+    <Compile Include="..\Vm.BusinessObjects\VacationRequests\VacationRequest.cs">
       <Link>VacationRequests\VacationRequest.cs</Link>
     </Compile>
-    <Compile Include="..\Vm.BusinessObjects.Server\VacationRequests\VacationRequestInfoList.cs">
+    <Compile Include="..\Vm.BusinessObjects\VacationRequests\VacationRequestInfoList.cs">
       <Link>VacationRequests\VacationRequestInfoList.cs</Link>
     </Compile>
-    <Compile Include="..\Vm.BusinessObjects.Server\VacationRequests\VacationStatus.cs">
+    <Compile Include="..\Vm.BusinessObjects\VacationRequests\VacationStatus.cs">
       <Link>VacationRequests\VacationStatus.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
