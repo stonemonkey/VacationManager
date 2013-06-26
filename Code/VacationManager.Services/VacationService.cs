@@ -9,7 +9,7 @@ using VacationManager.Services.Extensions;
 
 namespace VacationManager.Services
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Multiple)]
     public class VacationService : 
         IVacationRequestService, IVacationStatusService, IEmployeeService, IDisposable
     {

@@ -7,19 +7,19 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{922978F1-26A7-4924-90F2-5597145FF562}</ProjectGuid>
+    <ProjectGuid>{DDE39259-F560-4110-9604-419E3A78C9F8}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>VacationManager.IISHost</RootNamespace>
-    <AssemblyName>VacationManager.IISHost</AssemblyName>
+    <RootNamespace>VacationManager.Host</RootNamespace>
+    <AssemblyName>VacationManager.Host</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
-    <IISExpressAnonymousAuthentication>disabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>enabled</IISExpressWindowsAuthentication>
-    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,9 +29,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <IncludeIisSettings>true</IncludeIisSettings>
-    <IncludeAppPool>true</IncludeAppPool>
-    <PlatformTarget>x86</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -62,9 +59,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
@@ -110,7 +105,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>56552</DevelopmentServerPort>
+          <DevelopmentServerPort>54567</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/VacationManager</IISUrl>
           <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
@@ -124,10 +119,6 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

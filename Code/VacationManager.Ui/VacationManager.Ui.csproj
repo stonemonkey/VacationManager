@@ -120,6 +120,9 @@
       <DependentUpon>EmployeesStrings.resx</DependentUpon>
     </Compile>
     <Compile Include="Components\Employees\EmployeesViewModel.cs" />
+    <Compile Include="Components\Employees\EmployeesView.xaml.cs">
+      <DependentUpon>EmployeesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\IPopulableViewModel.cs" />
     <Compile Include="Components\IExplorerViewModel.cs" />
     <Compile Include="Components\MyRequests\MyRequestDetailsView.xaml.cs">
@@ -194,6 +197,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Components\Dashboard\DashboardView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\Employees\EmployeesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

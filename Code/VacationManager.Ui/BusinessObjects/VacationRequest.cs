@@ -120,7 +120,7 @@ namespace VacationManager.Ui.BusinessObjects
         /// <summary>
         /// Loads service object fields values (parameter) into the current business object 
         /// fields. Curent business object is a transient one. It may be persisted some time
-        /// somewhere but for the moment we assume it is not and deal wit it like transient.
+        /// somewhere but for the moment we assume it is not and deal with it like transient.
         /// </summary>
         /// <param name="serviceObject">The source.</param>
         protected void DataPortal_Create(VacationRequestDto serviceObject)
