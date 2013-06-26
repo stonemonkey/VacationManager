@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using Ninject;
-using VacationManager.Ui.BusinessObjects;
 using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Services;
+using Vm.BusinessObjects.Employees;
 
 namespace VacationManager.Ui.Components.Employees
 {

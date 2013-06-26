@@ -2,11 +2,11 @@
 using Caliburn.Micro;
 using Ninject;
 using VacationManager.Common.DataContracts;
-using VacationManager.Ui.BusinessObjects;
 using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Components.Shell;
 using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
+using Vm.BusinessObjects.VacationRequests;
 
 namespace VacationManager.Ui.Components.MyRequests
 {

@@ -1,11 +1,10 @@
 ﻿using System;
 using Csla;
-using VacationManager.Common.ServiceContracts;
 
-namespace VacationManager.Ui.BusinessObjects
+namespace Vm.BusinessObjects.VacationRequests
 {
     [Serializable]
-    public class VacationStatus : BusinessBase<VacationStatus>
+    public partial class VacationStatus : BusinessBase<VacationStatus>
     {
         #region Private fields
 
@@ -43,22 +42,6 @@ namespace VacationManager.Ui.BusinessObjects
         public int Left
         {
             get { return GetProperty(LeftProperty, _left); }
-        }
-
-        #endregion
-
-        #region DataPortal_XYZ methods
-
-        protected void DataPortal_Fetch(long employeeId)
-        {
-            using (var proxy = new ServiceProxy<IVacationStatusService>(Configuration.ServiceAddress))
-            {
-                var createdServiceObject = proxy.GetChannel().GetVacationStatusByEmployeeId(employeeId);
-
-                _totalNumber = createdServiceObject.TotalNumber;
-                _taken = createdServiceObject.Taken;
-                _left = createdServiceObject.Left;
-            }
         }
 
         #endregion

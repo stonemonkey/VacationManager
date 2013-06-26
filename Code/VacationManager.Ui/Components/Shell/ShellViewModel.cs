@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using Ninject;
-using VacationManager.Common.DataContracts;
-using VacationManager.Ui.BusinessObjects;
 using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Components.Dashboard;
 using VacationManager.Ui.Components.Employees;

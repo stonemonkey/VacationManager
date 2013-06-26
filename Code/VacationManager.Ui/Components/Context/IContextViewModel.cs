@@ -1,4 +1,4 @@
-﻿using VacationManager.Ui.BusinessObjects;
+﻿using Vm.BusinessObjects.Employees;
 
 namespace VacationManager.Ui.Components.Context
 {

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using Caliburn.Micro;
 using Ninject;
 using VacationManager.Common.DataContracts;
-using VacationManager.Ui.BusinessObjects;
 using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
+using Vm.BusinessObjects.Employees;
 
 namespace VacationManager.Ui.Components.Context
 {

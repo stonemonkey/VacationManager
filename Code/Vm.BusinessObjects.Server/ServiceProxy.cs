@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ServiceModel;
 
-namespace VacationManager.Ui.BusinessObjects
+namespace Vm.BusinessObjects.Server
 {
     public class ServiceProxy<TContract> : IDisposable
         where TContract : class

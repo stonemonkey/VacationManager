@@ -5,11 +5,12 @@ using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
 
+
 namespace VacationManager.Ui.Components.VacationStatus
 {
     public class VacationStatusViewModel : Screen, IPopulableViewModel
     {
-        private BusinessObjects.VacationStatus _item;
+        private Vm.BusinessObjects.VacationRequests.VacationStatus _item;
 
         public static VacationStatusStrings Localization
         {
@@ -34,7 +35,7 @@ namespace VacationManager.Ui.Components.VacationStatus
 
         #region Binding properties
 
-        public BusinessObjects.VacationStatus Item
+        public Vm.BusinessObjects.VacationRequests.VacationStatus Item
         {
             get { return _item; }
             set
@@ -57,7 +58,7 @@ namespace VacationManager.Ui.Components.VacationStatus
         {
             yield return UiService.ShowBusy();
 
-            var result = DataService.Fetch<BusinessObjects.VacationStatus>(Context.CurrentEmployee.Id);
+            var result = DataService.Fetch<Vm.BusinessObjects.VacationRequests.VacationStatus>(Context.CurrentEmployee.Id);
             yield return result;
 
             yield return UiService.HideBusy();

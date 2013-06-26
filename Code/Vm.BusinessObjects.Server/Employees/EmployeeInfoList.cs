@@ -1,6 +1,6 @@
 ﻿using Csla;
 
-namespace VacationManager.Ui.BusinessObjects
+namespace Vm.BusinessObjects.Employees
 {
     public class EmployeeInfoList : ReadOnlyListBase<EmployeeInfoList, Employee>
     {

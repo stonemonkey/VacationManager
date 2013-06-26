@@ -1,6 +1,7 @@
 ﻿using VacationManager.Common.DataContracts;
+using Vm.BusinessObjects.Employees;
 
-namespace VacationManager.Ui.BusinessObjects
+namespace VacationManager.Ui
 {
     public static class EmployeeExtensions
     {

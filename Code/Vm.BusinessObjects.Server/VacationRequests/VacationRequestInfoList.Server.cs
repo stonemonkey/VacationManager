@@ -1,10 +1,11 @@
 ﻿using Csla;
 using VacationManager.Common.DataContracts;
 using VacationManager.Common.ServiceContracts;
+using Vm.BusinessObjects.Server;
 
-namespace VacationManager.Ui.BusinessObjects
+namespace Vm.BusinessObjects.VacationRequests
 {
-    public class VacationRequestInfoList : ReadOnlyListBase<VacationRequestInfoList, VacationRequest>
+    public partial class VacationRequestInfoList
     {
         protected void DataPortal_Fetch(VacationRequestSearchCriteriaDto criteria)
         {
