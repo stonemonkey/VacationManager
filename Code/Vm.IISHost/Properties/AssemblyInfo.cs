@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("VacationManager.IISHost")]
+[assembly: AssemblyTitle("Vm.IISHost")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 
@@ -14,5 +14,5 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d2264a68-e230-49c0-82ef-732dca4e465d")]
+[assembly: Guid("828a1090-47db-4e29-b7e0-e95630ff2ce5")]
 

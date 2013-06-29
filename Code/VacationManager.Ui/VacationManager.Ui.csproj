@@ -396,9 +396,9 @@
       <Project>{17e37395-274b-4ac5-9601-1e4205c11457}</Project>
       <Name>VacationManager.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Vm.BusinessObjects\Vm.BusinessObjects.csproj">
-      <Project>{309a28da-bd25-4b3d-a514-63da6aa6b46b}</Project>
-      <Name>Vm.BusinessObjects</Name>
+    <ProjectReference Include="..\Vm.BusinessObjects.Client\Vm.BusinessObjects.Client.csproj">
+      <Project>{c4c73bc2-5eb0-47bb-a613-2fef4dbca4e7}</Project>
+      <Name>Vm.BusinessObjects.Client</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
