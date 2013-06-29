@@ -36,6 +36,9 @@
     <Reference Include="Csla.XmlSerializers">
       <HintPath>..\packages\CSLA-Core.4.5.30\lib\net45\Csla.XmlSerializers.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ServiceModel" />
@@ -51,7 +54,6 @@
     </Compile>
     <Compile Include="Configuration.cs" />
     <Compile Include="Employees\Employee.Server.cs" />
-    <Compile Include="ServiceProxy.cs" />
     <Compile Include="VacationRequests\ChangeVacationRequestStateCommand.cs" />
     <Compile Include="Employees\Employee.cs" />
     <Compile Include="Employees\EmployeeInfoList.cs" />
@@ -71,6 +73,10 @@
     <ProjectReference Include="..\VacationManager.Common\VacationManager.Common.csproj">
       <Project>{17E37395-274B-4AC5-9601-1E4205C11457}</Project>
       <Name>VacationManager.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VacationManager.Persistence\VacationManager.Persistence.csproj">
+      <Project>{6fbef26b-37ec-4237-8d1a-37e6a1e7636c}</Project>
+      <Name>VacationManager.Persistence</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

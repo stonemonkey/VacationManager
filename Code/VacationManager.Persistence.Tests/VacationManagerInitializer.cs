@@ -2,7 +2,7 @@
 using System.Data.Entity;
 using System.Linq;
 using FizzWare.NBuilder.Dates;
-using VacationManager.Common.DataContracts;
+using VacationManager.Common.Model;
 using VacationManager.Persistence.Model;
 
 namespace VacationManager.Persistence.Tests

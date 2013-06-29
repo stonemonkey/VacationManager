@@ -1,4 +1,4 @@
-﻿using VacationManager.Common.DataContracts;
+﻿using VacationManager.Common.Model;
 using Vm.BusinessObjects.Employees;
 
 namespace VacationManager.Ui

@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using VacationManager.Common.DataContracts;
+using VacationManager.Common.Model;
 
 namespace VacationManager.Persistence.Model
 {

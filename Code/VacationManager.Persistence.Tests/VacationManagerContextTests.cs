@@ -5,7 +5,7 @@ using System.Linq;
 using System.Xml;
 using FizzWare.NBuilder;
 using NUnit.Framework;
-using VacationManager.Common.DataContracts;
+using VacationManager.Common.Model;
 using VacationManager.Persistence.Model;
 
 namespace VacationManager.Persistence.Tests

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using VacationManager.Common.DataContracts;
-using VacationManager.Common.ServiceContracts;
-using Vm.BusinessObjects.Server;
+using System.Linq;
+using VacationManager.Common.Model;
+using VacationManager.Persistence;
 
 namespace Vm.BusinessObjects.VacationRequests
 {
@@ -23,16 +23,20 @@ namespace Vm.BusinessObjects.VacationRequests
         /// fields. Curent business object is a transient one. It may be persisted some time
         /// somewhere but for the moment we assume it is not and deal with it like transient.
         /// </summary>
-        /// <param name="serviceObject">The source.</param>
-        protected void DataPortal_Create(VacationRequestDto serviceObject)
+        /// <param name="entity">The source.</param>
+        protected void DataPortal_Create(VacationManager.Persistence.Model.VacationRequest entity)
         {
-            _requestNumber = serviceObject.RequestNumber;
-            _submissionDate = serviceObject.CreationDate;
-            _stateId = serviceObject.State;
-            _employeeFullName = serviceObject.EmployeeFullName;
+            _requestNumber = entity.RequestNumber;
+            _submissionDate = entity.CreationDate;
+            _stateId = entity.State;
+            _employeeFullName = entity.Employee.Firstname + " " + entity.Employee.Surname;
             
-            EmployeeId = serviceObject.EmployeeId;
-            VacationDays = new List<DateTime>(serviceObject.VacationDays);
+            EmployeeId = entity.Employee.Id;
+            // TODO: check if DateTime.Parse may introduce errors because of culture
+            var vacationDays = entity.VacationDays
+                .Split(new[] { VacationManager.Persistence.Model.VacationRequest.VacationDaysSeparator }, StringSplitOptions.RemoveEmptyEntries).ToList()
+                .ConvertAll(DateTime.Parse);
+            VacationDays = new List<DateTime>(vacationDays);
         }
 
         /// <summary>
@@ -41,24 +45,32 @@ namespace Vm.BusinessObjects.VacationRequests
         /// </summary>
         protected override void DataPortal_Insert()
         {
-            var serviceObject = new VacationRequestDto
+            using (var ctx = new VacationManagerContext())
             {
-                State = VacationRequestState.Submitted,
-                EmployeeId = EmployeeId,
-                VacationDays = VacationDays,
-            };
+                var employee = ctx.Employees.FirstOrDefault(x => x.Id == EmployeeId);
+                if (employee == null)
+                    throw new ApplicationException(
+                        string.Format("New request is associated with inexistent employee having id {0}.", EmployeeId));
 
-            using (var proxy = new ServiceProxy<IVacationRequestService>(Configuration.ServiceAddress))
-            {
-                var createdServiceObject = proxy.GetChannel().CreateRequest(serviceObject);
+                var numberOfVacationDaysLeft = ctx.VacationStatus.Single(x => x.Employee.Id == EmployeeId).Left;
+                if ((NumberOfDays < 1) || (NumberOfDays > numberOfVacationDaysLeft))
+                    throw new ApplicationException(
+                        string.Format("New request has invalid number of vacation days {0}. Must greather than 0 and less or equal than days left {1}.", NumberOfDays, NumberOfDays));
 
-                _requestNumber = createdServiceObject.RequestNumber;
-                _submissionDate = createdServiceObject.CreationDate;
-                _stateId = createdServiceObject.State;
-                _employeeFullName = serviceObject.EmployeeFullName;
+                var request = new VacationManager.Persistence.Model.VacationRequest
+                {
+                    State = VacationRequestState.Submitted,
+                    Employee = employee,
+                    VacationDays = Days,
+                };
 
-                EmployeeId = createdServiceObject.EmployeeId;
-                VacationDays = createdServiceObject.VacationDays;
+                ctx.Requests.Add(request);
+                ctx.SaveChanges();
+
+                _requestNumber = request.RequestNumber;
+                _submissionDate = request.CreationDate;
+                _stateId = request.State;
+                _employeeFullName = employee.Firstname + " " + employee.Surname;
             }
         }
 
@@ -68,9 +80,20 @@ namespace Vm.BusinessObjects.VacationRequests
         /// </summary>
         protected void DataPortal_Delete(long id)
         {
-            using (var proxy = new ServiceProxy<IVacationRequestService>(Configuration.ServiceAddress))
+            using (var ctx = new VacationManagerContext())
             {
-                proxy.GetChannel().DeleteRequest(id);
+                var request = ctx.Requests.FirstOrDefault(x => x.RequestNumber == id);
+                if (request == null)
+                    throw new ApplicationException(string.Format(
+                        "Request number {0} was not found. It must exist in order to be deleted.", id));
+
+                if (request.State != VacationRequestState.Submitted)
+                    throw new ApplicationException(string.Format(
+                        "Request {0} was already {1}, cannot be deleted anymore. It must be in submited state in order to be deleted.",
+                        id, request.State));
+
+                ctx.Requests.Remove(request);
+                ctx.SaveChanges();
             }
         }
 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using Ninject;
-using VacationManager.Common.DataContracts;
+using VacationManager.Common.Model;
 using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
@@ -87,7 +87,7 @@ namespace VacationManager.Ui.Components.PendingRequests
         {
             yield return UiService.ShowBusy();
 
-            var criteria = new VacationRequestSearchCriteriaDto
+            var criteria = new VacationRequestSearchCriteria
             {
                 GetMine = false, 
                 EmployeeId = Context.CurrentEmployee.Id, 

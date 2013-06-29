@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Csla;
 using Csla.Serialization;
-using VacationManager.Common.DataContracts;
+using VacationManager.Common.Model;
 
 namespace Vm.BusinessObjects.VacationRequests
 {

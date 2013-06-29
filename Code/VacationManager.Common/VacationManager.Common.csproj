@@ -40,16 +40,10 @@
     <Compile Include="..\SolutionItems\SharedAssemblyInfo.cs">
       <Link>SharedAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="DataContracts\EmployeeDto.cs" />
-    <Compile Include="DataContracts\EmployeeRoles.cs" />
-    <Compile Include="DataContracts\VacationRequestSearchCriteriaDto.cs" />
-    <Compile Include="DataContracts\VacationRequestState.cs" />
-    <Compile Include="DataContracts\VacationStatusDto.cs" />
-    <Compile Include="DataContracts\VacationRequestDto.cs" />
+    <Compile Include="Model\EmployeeRoles.cs" />
+    <Compile Include="Model\VacationRequestSearchCriteria.cs" />
+    <Compile Include="Model\VacationRequestState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ServiceContracts\IEmployeeService.cs" />
-    <Compile Include="ServiceContracts\IVacationStatusService.cs" />
-    <Compile Include="ServiceContracts\IVacationRequestService.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

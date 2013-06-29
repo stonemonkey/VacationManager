@@ -1,10 +1,7 @@
-﻿using System;
-using Csla;
-using Csla.Serialization;
+﻿using Csla;
 
 namespace Vm.BusinessObjects.Employees
 {
-    [Serializable]
     public class EmployeeInfoList : ReadOnlyListBase<EmployeeInfoList, Employee>
     {
     }

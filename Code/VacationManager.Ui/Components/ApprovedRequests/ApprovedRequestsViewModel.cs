@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using Ninject;
-using VacationManager.Common.DataContracts;
+using VacationManager.Common.Model;
 using VacationManager.Ui.Components.PendingRequests;
 using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
@@ -57,7 +57,7 @@ namespace VacationManager.Ui.Components.ApprovedRequests
         {
             yield return UiService.ShowBusy();
 
-            var criteria = new VacationRequestSearchCriteriaDto
+            var criteria = new VacationRequestSearchCriteria
             {
                 States = new[] { VacationRequestState.Approved },
             };

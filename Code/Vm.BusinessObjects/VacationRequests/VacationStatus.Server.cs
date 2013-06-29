@@ -1,5 +1,5 @@
-﻿using VacationManager.Common.ServiceContracts;
-using Vm.BusinessObjects.Server;
+﻿using System.Linq;
+using VacationManager.Persistence;
 
 namespace Vm.BusinessObjects.VacationRequests
 {
@@ -9,13 +9,13 @@ namespace Vm.BusinessObjects.VacationRequests
 
         protected void DataPortal_Fetch(long employeeId)
         {
-            using (var proxy = new ServiceProxy<IVacationStatusService>(Configuration.ServiceAddress))
+            using (var ctx = new VacationManagerContext())
             {
-                var createdServiceObject = proxy.GetChannel().GetVacationStatusByEmployeeId(employeeId);
+                var vacationDays = ctx.VacationStatus.FirstOrDefault(x => x.Employee.Id == employeeId);
 
-                _totalNumber = createdServiceObject.TotalNumber;
-                _taken = createdServiceObject.Taken;
-                _left = createdServiceObject.Left;
+                _totalNumber = vacationDays.TotalNumber;
+                _taken = vacationDays.Taken;
+                _left = vacationDays.Left;
             }
         }
 
