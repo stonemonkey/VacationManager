@@ -1,5 +1,6 @@
 ﻿using System;
 using Csla;
+using Csla.Serialization;
 using VacationManager.Common.DataContracts;
 
 namespace Vm.BusinessObjects.VacationRequests
