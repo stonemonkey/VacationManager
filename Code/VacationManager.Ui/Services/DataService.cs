@@ -21,6 +21,11 @@ namespace VacationManager.Ui.Services
         {
             return new ExecuteResult<TObject>(obj);
         }
+        
+        public LoginResult Login(string user, string password)
+        {
+            return new LoginResult(user, password);
+        }
 
         #region CRUD helpers for business objects
 

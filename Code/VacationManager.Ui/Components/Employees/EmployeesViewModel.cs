@@ -90,7 +90,7 @@ namespace VacationManager.Ui.Components.Employees
             //if (ReferenceEquals(null, result.Error))
             //    Items = result.Result;
             //else
-            //    yield return UiService.ShowMessageBox(result.Error.Message, GlobalStrings.ErrorCaption);
+            //    yield return UiService.ShowWindowsMessageBox(result.Error.Message, GlobalStrings.ErrorCaption);
         }
 
         //public IEnumerable<IResult> OpenDetailsForCreatingEmployee()
@@ -107,7 +107,7 @@ namespace VacationManager.Ui.Components.Employees
         //                              .In<IShellViewModel>()
         //                              .Configure(x => x.Item = result.Result);
         //    else
-        //        yield return UiService.ShowMessageBox(result.Error.Message, GlobalStrings.ErrorCaption);
+        //        yield return UiService.ShowWindowsMessageBox(result.Error.Message, GlobalStrings.ErrorCaption);
         //}
 
         //public IEnumerable<IResult> DeleteEmployee()
@@ -122,7 +122,7 @@ namespace VacationManager.Ui.Components.Employees
         //    if (ReferenceEquals(null, result.Error))
         //        yield return new SequentialResult(Populate().GetEnumerator());
         //    else
-        //        yield return UiService.ShowMessageBox(result.Error.Message, GlobalStrings.ErrorCaption);
+        //        yield return UiService.ShowWindowsMessageBox(result.Error.Message, GlobalStrings.ErrorCaption);
         //}
 
         #endregion

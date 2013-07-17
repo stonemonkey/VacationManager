@@ -54,6 +54,9 @@
     </Compile>
     <Compile Include="Configuration.cs" />
     <Compile Include="Employees\Employee.Server.cs" />
+    <Compile Include="Security\VmIdentity.Server.cs" />
+    <Compile Include="Security\VmIdentity.cs" />
+    <Compile Include="Security\VmPrincipal.cs" />
     <Compile Include="VacationRequests\ChangeVacationRequestStateCommand.cs" />
     <Compile Include="Employees\Employee.cs" />
     <Compile Include="Employees\EmployeeInfoList.cs" />

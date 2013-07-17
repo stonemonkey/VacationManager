@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VacationManager.Ui.Resources {
+namespace VacationManager.Ui.Components.LogIn {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace VacationManager.Ui.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class GlobalStrings {
+    public class LoginStrings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal GlobalStrings() {
+        internal LoginStrings() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace VacationManager.Ui.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VacationManager.Ui.Resources.GlobalStrings", typeof(GlobalStrings).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VacationManager.Ui.Components.LogIn.LoginStrings", typeof(LoginStrings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,29 +61,83 @@ namespace VacationManager.Ui.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to VacationManager.
+        ///   Looks up a localized string similar to Login - Error.
         /// </summary>
-        public static string ApplicationTitle {
+        public static string ErrorMessageBoxCaption {
             get {
-                return ResourceManager.GetString("ApplicationTitle", resourceCulture);
+                return ResourceManager.GetString("ErrorMessageBoxCaption", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error.
+        ///   Looks up a localized string similar to Invalid user or password!.
         /// </summary>
-        public static string ErrorCaption {
+        public static string InvalidCredentialsMessage {
             get {
-                return ResourceManager.GetString("ErrorCaption", resourceCulture);
+                return ResourceManager.GetString("InvalidCredentialsMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Question.
+        ///   Looks up a localized string similar to Login.
         /// </summary>
-        public static string QuestionCaption {
+        public static string Login {
             get {
-                return ResourceManager.GetString("QuestionCaption", resourceCulture);
+                return ResourceManager.GetString("Login", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password:.
+        /// </summary>
+        public static string PasswordLabel {
+            get {
+                return ResourceManager.GetString("PasswordLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Register new user.
+        /// </summary>
+        public static string Register {
+            get {
+                return ResourceManager.GetString("Register", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Password is required!.
+        /// </summary>
+        public static string RequiredPassword {
+            get {
+                return ResourceManager.GetString("RequiredPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User is required!.
+        /// </summary>
+        public static string RequiredUser {
+            get {
+                return ResourceManager.GetString("RequiredUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login.
+        /// </summary>
+        public static string Title {
+            get {
+                return ResourceManager.GetString("Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User:.
+        /// </summary>
+        public static string UserLabel {
+            get {
+                return ResourceManager.GetString("UserLabel", resourceCulture);
             }
         }
     }

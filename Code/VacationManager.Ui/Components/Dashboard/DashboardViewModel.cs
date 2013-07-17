@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Caliburn.Micro;
+using Csla;
 using Ninject;
+using VacationManager.Common.Model;
 using VacationManager.Ui.Components.ApprovedRequests;
 using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Components.PendingRequests;
@@ -11,7 +13,6 @@ using VacationManager.Ui.Services;
 
 namespace VacationManager.Ui.Components.Dashboard
 {
-    // TODO: maybe this can be a Conductor<IPopulableViewModel>.Collection.AllActive
     public class DashboardViewModel : Screen, IPopulableViewModel
     {
         public static DashboardStrings Localization
@@ -50,10 +51,10 @@ namespace VacationManager.Ui.Components.Dashboard
         {
             yield return Populate(VacationStatus);
             
-            if (Context.IsManager)
+            if (ApplicationContext.User.IsInRole(EmployeeRoles.Manager.ToString()))
                 yield return Populate(PendingRequests);
             
-            if (Context.IsHr)
+            if (ApplicationContext.User.IsInRole(EmployeeRoles.Hr.ToString()))
                 yield return Populate(ApprovedRequests);
         }
 
@@ -68,6 +69,7 @@ namespace VacationManager.Ui.Components.Dashboard
             catch (Exception ex)
             {
                 result = UiService.ShowMessageBox(ex.Message, GlobalStrings.ErrorCaption);
+                
                 TryClose();
             }
             

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using Caliburn.Micro;
+using Csla;
 using Ninject;
-using VacationManager.Common.Model;
 using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
 using Vm.BusinessObjects.Employees;
+using Vm.BusinessObjects.Security;
 
 namespace VacationManager.Ui.Components.Context
 {
@@ -68,35 +69,21 @@ namespace VacationManager.Ui.Components.Context
                 _currentEmployee = value;
                 if (_currentEmployee != null)
                 {
-                    RolesMessage = string.Format(ContextStrings.RolesMessageFormat, GetRoles());
-                    WelcomeMessage = string.Format(ContextStrings.WelcomeMessageFormat, _currentEmployee.Firstname, _currentEmployee.LastName);
+                    RolesMessage = string.Format(
+                        ContextStrings.RolesMessageFormat, _currentEmployee.Roles.ToString());
+                    WelcomeMessage = string.Format(
+                        ContextStrings.WelcomeMessageFormat, _currentEmployee.Firstname, _currentEmployee.LastName);
                 }
             }
-        }
-
-        public bool IsExecutive
-        {
-            get { return _currentEmployee.IsIn(EmployeeRoles.Executive); }
-        }
-
-        public bool IsManager
-        {
-            get { return _currentEmployee.IsIn(EmployeeRoles.Manager); }
-        }
-        
-        public bool IsHr
-        {
-            get { return _currentEmployee.IsIn(EmployeeRoles.Hr); }
         }
 
         public IEnumerable<IResult> Populate()
         {
             yield return UiService.ShowBusy();
 
-            // TODO: in future server should return employee determined by checking caller identity.
-            // for the moment, in order to be able to test more easily we are specifying the id of 
-            // the employee we consider to be the caller.
-            var result = DataService.Fetch<Employee>(Configuration.CurrentEmployeeId);
+            var vmIdentity = (VmIdentity) ApplicationContext.User.Identity;
+            // TODO: what if the cast fails?
+            var result = DataService.Fetch<Employee>(vmIdentity.EmployeeId);
             yield return result;
 
             yield return UiService.HideBusy();
@@ -105,20 +92,6 @@ namespace VacationManager.Ui.Components.Context
                 CurrentEmployee = result.Result;
             else
                 yield return UiService.ShowMessageBox(result.Error.Message, GlobalStrings.ErrorCaption);
-        }
-
-        private string GetRoles()
-        {
-            var message = string.Empty;
-
-            if (IsExecutive)
-                message += " " + ContextStrings.ExecutiveRole;
-            if (IsManager)
-                message += " " + ContextStrings.ManagerRole;
-            if (IsHr)
-                message += " " + ContextStrings.HrRole;
-
-            return message;
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using VacationManager.Persistence;
+﻿using VacationManager.Persistence;
 
 namespace Vm.BusinessObjects.Employees
 {
@@ -10,21 +8,14 @@ namespace Vm.BusinessObjects.Employees
 
         protected void DataPortal_Fetch(long id)
         {
-            try
+            using (var ctx = new VacationManagerContext())
             {
-                using (var ctx = new VacationManagerContext())
-                {
-                    var employee = ctx.Employees.Find(id);
+                var employee = ctx.Employees.Find(id);
 
-                    Id = employee.Id;
-                    LastName = employee.LastName;
-                    Firstname = employee.Firstname;
-                    Roles = employee.Roles;
-                }
-            }
-            catch (Exception e)
-            {
-                Debug.WriteLine(e.Message);
+                Id = employee.Id;
+                LastName = employee.LastName;
+                Firstname = employee.Firstname;
+                Roles = employee.Roles;
             }
         }
 

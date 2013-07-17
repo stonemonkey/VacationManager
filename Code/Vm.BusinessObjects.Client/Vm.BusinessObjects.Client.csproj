@@ -51,6 +51,12 @@
     <Compile Include="..\Vm.BusinessObjects\Employees\EmployeeInfoList.cs">
       <Link>Employees\EmployeeInfoList.cs</Link>
     </Compile>
+    <Compile Include="..\Vm.BusinessObjects\Security\VmIdentity.cs">
+      <Link>Security\VmIdentity.cs</Link>
+    </Compile>
+    <Compile Include="..\Vm.BusinessObjects\Security\VmPrincipal.cs">
+      <Link>Security\VmPrincipal.cs</Link>
+    </Compile>
     <Compile Include="..\Vm.BusinessObjects\VacationRequests\ChangeVacationRequestStateCommand.cs">
       <Link>VacationRequests\ChangeVacationRequestStateCommand.cs</Link>
     </Compile>

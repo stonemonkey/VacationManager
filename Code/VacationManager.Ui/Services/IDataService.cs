@@ -13,6 +13,8 @@ namespace VacationManager.Ui.Services
         ExecuteResult<TObject> Execute<TObject>(TObject obj)
             where TObject : CommandBase<TObject>;
 
+        LoginResult Login(string user, string password);
+
         #region CRUD helpers for business objects
 
         CreateResult<TObject> Create<TObject>()

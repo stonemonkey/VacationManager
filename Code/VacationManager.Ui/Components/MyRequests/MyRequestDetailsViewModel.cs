@@ -168,7 +168,7 @@ namespace VacationManager.Ui.Components.MyRequests
 
         private bool IsUserOkToCloseWithoutSaving()
         {
-            var result = UiService.ShowMessageBox(
+            var result = UiService.ShowWindowsMessageBox(
                 MyRequestDetailsStrings.CloseWhenUnsavedMesage, 
                 GlobalStrings.QuestionCaption, MessageBoxButton.OKCancel);
 

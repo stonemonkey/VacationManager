@@ -9,7 +9,6 @@
 
     <UserControl.Resources>
         <converters:Bool2VisibilityConverter x:Key="Bool2Visibility"/>
-        <!--<converters:InvBool2VisibilityConverter x:Key="InvBool2Visibility"/>-->
     </UserControl.Resources>
     
     <StackPanel>

@@ -126,6 +126,12 @@
     <Compile Include="Components\Dashboard\DashboardView.xaml.cs">
       <DependentUpon>DashboardView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\DialogBox\DialogBoxView.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>DialogBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\DialogBox\DialogBoxViewModel.cs" />
+    <Compile Include="Components\DialogBox\IDialogBoxViewModel.cs" />
     <Compile Include="Components\Employees\EmployeesStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -137,6 +143,22 @@
     </Compile>
     <Compile Include="Components\IPopulableViewModel.cs" />
     <Compile Include="Components\IExplorerViewModel.cs" />
+    <Compile Include="Components\LogIn\LoginStrings1.Designer.cs">
+      <DependentUpon>LoginStrings.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Components\LogIn\ILoginViewModel.cs" />
+    <Compile Include="Components\LogIn\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\LogIn\LoginViewModel.cs" />
+    <Compile Include="Components\MessageBox\MessageBoxOptions.cs" />
+    <Compile Include="Components\MessageBox\MessageBoxView.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>MessageBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\MessageBox\MessageBoxViewModel.cs" />
     <Compile Include="Components\MyRequests\MyRequestDetailsView.xaml.cs">
       <DependentUpon>MyRequestDetailsView.xaml</DependentUpon>
     </Compile>
@@ -183,6 +205,7 @@
     <Compile Include="Configuration.cs" />
     <Compile Include="Converters\Bool2VisibilityConverter.cs" />
     <Compile Include="Converters\InvBool2VisibilityConverter.cs" />
+    <Compile Include="Converters\Null2CollapsedConverter.cs" />
     <Compile Include="EmployeeExtensions.cs" />
     <Compile Include="Resources\GlobalStrings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -197,6 +220,7 @@
     <Compile Include="Results\FetchListResult.cs" />
     <Compile Include="Results\FetchResult.cs" />
     <Compile Include="Results\EmptyResult.cs" />
+    <Compile Include="Results\LoginResult.cs" />
     <Compile Include="Results\MessageBoxResult.cs" />
     <Compile Include="Results\ResultBase.cs" />
     <Compile Include="Results\UpdateResult.cs" />
@@ -212,15 +236,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Components\DialogBox\DialogBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\Employees\EmployeesView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\LogIn\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\MenuBar\MenuBarView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\MenuBar\MenuStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\MessageBox\MessageBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -301,6 +337,10 @@
     <EmbeddedResource Include="Components\Employees\EmployeesStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>EmployeesStrings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Components\LogIn\LoginStrings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LoginStrings1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Components\MyRequests\MyRequestDetailsStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -405,6 +445,9 @@
   <ItemGroup>
     <Resource Include="Resources\Icons\icontexto-webdev-cancel-032x032.png" />
     <Resource Include="Resources\Icons\icontexto-webdev-ok-032x032.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icons\Login.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

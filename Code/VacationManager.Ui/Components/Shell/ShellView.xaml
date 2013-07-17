@@ -38,7 +38,7 @@
         <xctk:BusyIndicator x:Name="BusyIndicator" Grid.RowSpan="2" 
                             HorizontalAlignment="Center" Background="Transparent"/>
 
-        <!--<ContentControl x:Name="DialogBox" Grid.RowSpan="2" 
-                        VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"/>-->
+        <ContentControl x:Name="DialogBox" Grid.RowSpan="2" 
+                        VerticalContentAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
     </Grid>
 </UserControl>
