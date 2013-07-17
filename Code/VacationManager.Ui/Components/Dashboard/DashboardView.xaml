@@ -16,11 +16,11 @@
             <ContentControl x:Name="VacationStatus"/>
         </Expander>
         <Expander Header="{Binding PendingRequests.DisplayName}" IsExpanded="True" HorizontalAlignment="Left"
-                  Visibility="{Binding Context.IsManager, Converter={StaticResource Bool2Visibility}}">
+                  Visibility="{Binding IsManager, Converter={StaticResource Bool2Visibility}}">
             <ContentControl x:Name="PendingRequests"/>
         </Expander>
         <Expander Header="{Binding ApprovedRequests.DisplayName}" IsExpanded="True" HorizontalAlignment="Left"
-                  Visibility="{Binding Context.IsHr, Converter={StaticResource Bool2Visibility}}">
+                  Visibility="{Binding IsHr, Converter={StaticResource Bool2Visibility}}">
             <ContentControl x:Name="ApprovedRequests"/>
         </Expander>
     </StackPanel>

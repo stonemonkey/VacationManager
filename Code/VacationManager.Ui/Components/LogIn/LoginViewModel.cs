@@ -9,7 +9,7 @@ using Vm.BusinessObjects.Security;
 
 namespace VacationManager.Ui.Components.LogIn
 {
-    public class LoginViewModel : Screen, ILoginViewModel 
+    public class LoginViewModel : Screen 
     {
         private string _user;
         private string _password;

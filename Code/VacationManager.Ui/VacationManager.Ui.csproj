@@ -148,7 +148,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Components\LogIn\ILoginViewModel.cs" />
     <Compile Include="Components\LogIn\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>

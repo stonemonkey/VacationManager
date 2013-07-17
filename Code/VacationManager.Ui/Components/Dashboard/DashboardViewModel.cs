@@ -42,6 +42,18 @@ namespace VacationManager.Ui.Components.Dashboard
 
         #endregion
 
+        // TODO: should be moved somewhere else
+        public bool IsManager
+        {
+            get { return ApplicationContext.User.IsInRole(EmployeeRoles.Manager.ToString()); }
+        }
+
+        // TODO: should be moved somewhere else
+        public bool IsHr
+        {
+            get { return ApplicationContext.User.IsInRole(EmployeeRoles.Hr.ToString()); }
+        }
+
         public DashboardViewModel()
         {
             DisplayName = DashboardStrings.Title;
@@ -51,10 +63,10 @@ namespace VacationManager.Ui.Components.Dashboard
         {
             yield return Populate(VacationStatus);
             
-            if (ApplicationContext.User.IsInRole(EmployeeRoles.Manager.ToString()))
+            if (IsManager)
                 yield return Populate(PendingRequests);
             
-            if (ApplicationContext.User.IsInRole(EmployeeRoles.Hr.ToString()))
+            if (IsHr)
                 yield return Populate(ApprovedRequests);
         }
 

@@ -47,7 +47,7 @@ namespace VacationManager.Ui.Components.Shell
         {
             base.OnInitialize();
 
-            UiService.ShowDialog<ILoginViewModel>()
+            UiService.ShowDialog<LoginViewModel>()
                 .Execute(new ActionExecutionContext { Target = this });
         }
 
