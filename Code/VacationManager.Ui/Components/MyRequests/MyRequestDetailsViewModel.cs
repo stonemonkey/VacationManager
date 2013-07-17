@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Windows;
 using Caliburn.Micro;
 using Ninject;
@@ -7,12 +9,14 @@ using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
 using Vm.BusinessObjects.VacationRequests;
+using Calendar = System.Windows.Controls.Calendar;
 
 namespace VacationManager.Ui.Components.MyRequests
 {
     public class MyRequestDetailsViewModel : Screen
     {
         private VacationRequest _item;
+        private bool _useStartEndDateSelecetion;
 
         public static MyRequestDetailsStrings Localization
         {
@@ -43,15 +47,33 @@ namespace VacationManager.Ui.Components.MyRequests
             set
             {
                 _item = value;
+
+                UpdateTitle();
+
                 NotifyOfPropertyChange(() => Item);
                 NotifyOfPropertyChange(() => CanSaveRequest);
                 NotifyOfPropertyChange(() => CanCancelRequest);
             }
         }
 
+        public bool UseStartEndDateSelection {
+            get { return _useStartEndDateSelecetion; }
+            set
+            {
+                _useStartEndDateSelecetion = value; 
+
+                NotifyOfPropertyChange(() => IsCalendarAvailableForSelection);
+            }
+        }
+
+        public bool IsCalendarAvailableForSelection
+        {
+            get { return Item.IsDirty && !UseStartEndDateSelection; }
+        }
+
         public bool CanSaveRequest
         {
-            get { return Item.IsNew; }
+            get { return Item.IsDirty; }
         }
 
         public bool CanCancelRequest
@@ -60,11 +82,6 @@ namespace VacationManager.Ui.Components.MyRequests
         }
 
         #endregion
-
-        public MyRequestDetailsViewModel()
-        {
-            DisplayName = MyRequestDetailsStrings.Title;
-        }
 
         #region Actions
 
@@ -86,10 +103,15 @@ namespace VacationManager.Ui.Components.MyRequests
 
             yield return UiService.HideBusy();
 
-            if (ReferenceEquals(null, result.Error))
+            if (result.Error == null)
+            {
                 Item = result.Result;
+                UpdateTitle();
+            }
             else
+            {
                 yield return UiService.ShowMessageBox(result.Error.Message, GlobalStrings.ErrorCaption);
+            }
         }
 
         public IEnumerable<IResult> CancelRequest()
@@ -107,16 +129,40 @@ namespace VacationManager.Ui.Components.MyRequests
                 yield return UiService.ShowMessageBox(result.Error.Message, GlobalStrings.ErrorCaption);
         }
 
-        public void UpdateSelectedDates(IList<DateTime> selectedDates)
+        //==============================================================================================
+        // TODO: FIX ME! This is an ugly way of doing "binding" to Calendar.SelectedDates which is 
+        // not a dependency property. This is only one way (VM->V) => for creating new requests is 
+        // enaugh but not for editing existent ones.
+        public void UpdateModelSelectedDates(Calendar calendar)
         {
-            // FIX ME: this is an ugly way of doing "binding" to Calendar.SelectedDates
-            // which is not a dependency property. This is only one way (VM->V) => for
-            // creating new requests is enaugh but not for editing existent ones.
-            Item.VacationDays.Clear();
-            Item.VacationDays.AddRange(selectedDates);
+            if (UseStartEndDateSelection || 
+                (calendar == null) || (calendar.SelectedDates == null) || !calendar.SelectedDates.Any())
+                return;
+
+            Item.StartDate = calendar.SelectedDates.Min();
+            Item.EndDate = calendar.SelectedDates.Max();
 
             NotifyOfPropertyChange(() => Item);
+
+            // This forces calendar to release mouse in order to be able to click on other things 
+            // only once after you selected some dates in calendar not twice.
+            calendar.CaptureMouse();
+            calendar.ReleaseMouseCapture();
         }
+
+        public void UpdateViewSelectedDates(Calendar calendar)
+        {
+            if ((calendar == null) || (calendar.SelectedDates == null))
+                return;
+
+            // That is for forcing Start and EndDate to be updated before calculating the period.
+            NotifyOfPropertyChange(() => Item);
+
+            var numberOfDays = ((Item.EndDate - Item.StartDate).Days + 1);
+            if (numberOfDays > 0)
+                calendar.SelectedDates.AddRange(Item.StartDate, Item.EndDate);    
+        }
+        //==============================================================================================
 
         #endregion
 
@@ -129,6 +175,19 @@ namespace VacationManager.Ui.Components.MyRequests
             result.Execute();
 
             return (result.Result == MessageBoxResult.OK);
+        }
+
+        private void UpdateTitle()
+        {
+            var dirty = string.Empty;
+            if (Item.IsDirty)
+                dirty = MyRequestDetailsStrings.DirtyTitlePartText;
+
+            var requestNumber = string.Empty;
+            if (!Item.IsNew)
+                requestNumber = Item.RequestNumber.ToString(CultureInfo.InvariantCulture);
+
+            DisplayName = DisplayName = string.Format(MyRequestDetailsStrings.Title, requestNumber, dirty);
         }
     }
 }

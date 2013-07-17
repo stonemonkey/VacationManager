@@ -13,7 +13,7 @@ namespace Vm.BusinessObjects.VacationRequests
         {
             using (var ctx = new VacationManagerContext())
             {
-                var request = ctx.Requests.FirstOrDefault(x => x.RequestNumber == _requestNumber);
+                var request = ctx.Requests.FirstOrDefault(x => x.Id == _requestNumber);
                 if (request == null)
                     throw new ApplicationException(string.Format(
                         "Request number {0} was not found. It must exist in order to change it's state.", _requestNumber));

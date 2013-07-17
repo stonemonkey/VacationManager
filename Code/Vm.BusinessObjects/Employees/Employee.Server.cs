@@ -17,7 +17,7 @@ namespace Vm.BusinessObjects.Employees
                     var employee = ctx.Employees.Find(id);
 
                     Id = employee.Id;
-                    Surname = employee.Surname;
+                    LastName = employee.LastName;
                     Firstname = employee.Firstname;
                     Roles = employee.Roles;
                 }

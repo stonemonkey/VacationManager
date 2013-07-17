@@ -13,10 +13,10 @@ namespace Vm.BusinessObjects.VacationRequests
             RaiseListChangedEvents = false;
             IsReadOnly = false;
 
-            IList<VacationManager.Persistence.Model.VacationRequest> requests;
-
             using (var ctx = new VacationManagerContext())
             {
+                IList<VacationManager.Persistence.Model.VacationRequest> requests;
+              
                 if (criteria == null)
                     requests = ctx.Requests.ToList();
                 else
@@ -32,10 +32,10 @@ namespace Vm.BusinessObjects.VacationRequests
 
                     requests = query.OrderByDescending(x => x.CreationDate).ToList();
                 }
+            
+                foreach (var item in requests)
+                    Add(DataPortal.Create<VacationRequest>(item));
             }
-
-            foreach (var item in requests)
-                Add(DataPortal.Create<VacationRequest>(item));
 
             IsReadOnly = true;
             RaiseListChangedEvents = true;

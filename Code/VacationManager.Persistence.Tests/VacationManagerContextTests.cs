@@ -95,13 +95,13 @@ namespace VacationManager.Persistence.Tests
             var employee = BuildEmployee();
             _ctx.Employees.Add(employee);
             _ctx.SaveChanges();
-            Assert.AreNotEqual(employee.EmailAddress, expectedEmail);
+            Assert.AreNotEqual(employee.Email, expectedEmail);
 
-            employee.EmailAddress = expectedEmail;
+            employee.Email = expectedEmail;
             _ctx.SaveChanges(); // TODO: check why commenting this line the test still passes, 
                                 // when commented, update is not performend on db, I saw that with profiler
 
-            Assert.AreEqual(expectedEmail, _ctx.Employees.Find(employee.Id).EmailAddress);
+            Assert.AreEqual(expectedEmail, _ctx.Employees.Find(employee.Id).Email);
         }
 
         [Test]
@@ -131,7 +131,7 @@ namespace VacationManager.Persistence.Tests
             _ctx.Requests.Add(request);
             _ctx.SaveChanges();
 
-            Assert.IsNotNull(_ctx.Requests.Find(request.RequestNumber));
+            Assert.IsNotNull(_ctx.Requests.Find(request.Id));
         }
 
         [Test]
@@ -158,7 +158,7 @@ namespace VacationManager.Persistence.Tests
             _ctx.SaveChanges(); // TODO: check why commenting this line the test still passes, 
                                 // when commented, update is not performend on db, I saw that with profiler
 
-            Assert.AreEqual(VacationRequestState.Rejected, _ctx.Requests.Find(request.RequestNumber).State);
+            Assert.AreEqual(VacationRequestState.Rejected, _ctx.Requests.Find(request.Id).State);
         }
 
         [Test]
@@ -173,7 +173,7 @@ namespace VacationManager.Persistence.Tests
             _ctx.Requests.Remove(request);
             _ctx.SaveChanges();
 
-            Assert.IsNull(_ctx.Requests.Find(request.RequestNumber));
+            Assert.IsNull(_ctx.Requests.Find(request.Id));
         }
 
         #endregion
@@ -263,7 +263,7 @@ namespace VacationManager.Persistence.Tests
         {
             return Builder<VacationRequest>
                 .CreateNew()
-                    .With(x => x.RequestNumber = 0)
+                    .With(x => x.Id = 0)
                     .And(x => x.Employee = employee)
                 .Build();
         }

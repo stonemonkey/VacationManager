@@ -123,6 +123,12 @@
   <data name="CloseWhenUnsavedMesage" xml:space="preserve">
     <value>Are you sure you want to close and drop the canges?</value>
   </data>
+  <data name="DirtyTitlePartText" xml:space="preserve">
+    <value>* </value>
+  </data>
+  <data name="EndDateFieldText" xml:space="preserve">
+    <value>End date:</value>
+  </data>
   <data name="NumberOfDaysFieldText" xml:space="preserve">
     <value>Number of days:</value>
   </data>
@@ -132,6 +138,9 @@
   <data name="SaveTooltipText" xml:space="preserve">
     <value>Submit</value>
   </data>
+  <data name="StartDateFieldText" xml:space="preserve">
+    <value>Start date:</value>
+  </data>
   <data name="StatusFieldText" xml:space="preserve">
     <value>State:</value>
   </data>
@@ -139,9 +148,9 @@
     <value>Submitted on:</value>
   </data>
   <data name="Title" xml:space="preserve">
-    <value>Edit my request</value>
+    <value>{1}Request {0}</value>
   </data>
   <data name="VacationDaysFieldText" xml:space="preserve">
-    <value>Vacation days:</value>
+    <value>Use Start-EndDate selection</value>
   </data>
 </root>

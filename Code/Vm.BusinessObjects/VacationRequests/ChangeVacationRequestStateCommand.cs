@@ -1,6 +1,8 @@
 ﻿using System;
 using Csla;
+// ReSharper disable RedundantUsingDirective
 using Csla.Serialization;
+// ReSharper restore RedundantUsingDirective
 using VacationManager.Common.Model;
 
 namespace Vm.BusinessObjects.VacationRequests

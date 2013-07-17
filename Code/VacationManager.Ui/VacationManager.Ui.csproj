@@ -181,7 +181,6 @@
     </Compile>
     <Compile Include="Components\VacationStatus\VacationStatusViewModel.cs" />
     <Compile Include="Configuration.cs" />
-    <Compile Include="Controls\VmCalendar.cs" />
     <Compile Include="Converters\Bool2VisibilityConverter.cs" />
     <Compile Include="Converters\InvBool2VisibilityConverter.cs" />
     <Compile Include="EmployeeExtensions.cs" />

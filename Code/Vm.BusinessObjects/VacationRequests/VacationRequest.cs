@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Csla;
+// ReSharper disable RedundantUsingDirective
 using Csla.Serialization;
+// ReSharper restore RedundantUsingDirective
 using VacationManager.Common.Model;
 
 namespace Vm.BusinessObjects.VacationRequests
@@ -18,6 +18,18 @@ namespace Vm.BusinessObjects.VacationRequests
         private string _employeeFullName;
 
         #endregion
+        
+        /// <summary>
+        /// Loads default values into current business object fields.
+        /// This is common for client and server. Does not make sense to go to server for this.
+        /// </summary>
+        [RunLocal]
+        protected override void DataPortal_Create()
+        {
+            var tomorrow = DateTime.Today.AddDays(1);
+            StartDate = tomorrow;
+            EndDate = tomorrow;
+        }
 
         #region Property definitions
 
@@ -36,8 +48,11 @@ namespace Vm.BusinessObjects.VacationRequests
         public static PropertyInfo<long> EmployeeIdProperty =
             RegisterProperty<long>(c => c.EmployeeId);
 
-        public static PropertyInfo<List<DateTime>> VacationDaysProperty =
-            RegisterProperty<List<DateTime>>(c => c.VacationDays);
+        public static PropertyInfo<DateTime> StartDateProperty =
+            RegisterProperty<DateTime>(c => c.StartDate);
+        
+        public static PropertyInfo<DateTime> EndDateProperty =
+            RegisterProperty<DateTime>(c => c.EndDate);
 
         #endregion
 
@@ -51,6 +66,18 @@ namespace Vm.BusinessObjects.VacationRequests
         public DateTime SubmissionDate
         {
             get { return GetProperty(SubmissionDateProperty, _submissionDate); }
+        }
+
+        public DateTime StartDate
+        {
+            get { return GetProperty(StartDateProperty); }
+            set { SetProperty(StartDateProperty, value); }
+        }
+
+        public DateTime EndDate
+        {
+            get { return GetProperty(EndDateProperty); }
+            set { SetProperty(EndDateProperty, value); }
         }
 
         public string State
@@ -78,33 +105,12 @@ namespace Vm.BusinessObjects.VacationRequests
         {
             get
             {
-                if (VacationDays != null)
-                    return VacationDays.Count;
-
-                return 0;
+                var dif = (EndDate - StartDate);
+                // TODO: substract weekend and legal holydays 
+                return (dif.Days + 1);
             }
-        }
-
-        public List<DateTime> VacationDays
-        {
-            get { return GetProperty(VacationDaysProperty); }
-            set { SetProperty(VacationDaysProperty, value); }
         }
         
-        public string Days
-        {
-            get
-            {
-                var days = new StringBuilder();
-                foreach (var d in VacationDays)
-                {
-                    days.Append(" ");
-                    days.Append(d.ToString("dd/MM"));
-                }
-                return days.ToString();
-            }
-        }
-
         #endregion
     }
 }

@@ -11,7 +11,7 @@ namespace VacationManager.Persistence.Tests
     {
         protected override void Seed(VacationManagerContext context)
         {
-            var employees = BuildEmployees(); 
+            var employees = BuildEmployees();
             employees.ForEach(e => context.Employees.Add(e));
 
             var vacationDays = BuildVacationStatuses(employees);
@@ -23,21 +23,70 @@ namespace VacationManager.Persistence.Tests
 
         private static List<Employee> BuildEmployees()
         {
-            var cornelBrody = new Employee { Firstname = "Cornel", Surname = "Brody", Roles = EmployeeRoles.Manager, EmailAddress = "cornel.brody@iquestgroup.com", Manager = null };
-            var mihaiBarabas = new Employee { Firstname = "Mihai", Surname = "Barabas", Roles = EmployeeRoles.Manager | EmployeeRoles.Executive, EmailAddress = "mihai.barabas@iquestgroup.com", Manager = cornelBrody };
-            var cosminMolnar = new Employee { Firstname = "Cosmin", Surname = "Molnar", Roles = EmployeeRoles.Manager | EmployeeRoles.Executive, EmailAddress = "cosmin.molnar@iquestgroup.com", Manager = cornelBrody };
+            var cornelBrody = new Employee
+            {
+                Firstname = "Cornel", LastName = "Brody", BirthDate = The.Year(1956).On.May.The10th,
+                HireDate = The.Year(1999).On.February.The15th,
+                Roles = EmployeeRoles.Manager, 
+                Email = "cornel.brody@contoso.com", 
+                Manager = null
+            };
+            var mihaiBarabas = new Employee
+            {
+                Firstname = "Mihai", LastName = "Barabas", BirthDate = The.Year(1978).On.July.The7th,
+                HireDate = The.Year(2004).On.August.The21st,
+                Roles = EmployeeRoles.Manager | EmployeeRoles.Executive, 
+                Email = "mihai.barabas@contoso.com", 
+                Manager = cornelBrody
+            };
+            var cosminMolnar = new Employee
+            {
+                Firstname = "Cosmin", LastName = "Molnar", BirthDate = The.Year(1975).On.January.The24th,
+                HireDate = The.Year(2012).On.May.The13th,
+                Roles = EmployeeRoles.Manager | EmployeeRoles.Executive, 
+                Email = "cosmin.molnar@contoso.com", 
+                Manager = cornelBrody
+            };
 
             return new List<Employee>
             {
                 cornelBrody, mihaiBarabas, cosminMolnar,
-                new Employee { Firstname = "Hr", Surname = "Generic", Roles = EmployeeRoles.Hr, EmailAddress = "hr_holidays@iquestgroup.com", Manager = null, },
-                new Employee { Firstname = "Daniel", Surname = "Savu", Roles = EmployeeRoles.Executive, EmailAddress = "daniel.savu@iquestgroup.com", Manager = mihaiBarabas, },
-                new Employee { Firstname = "Costin", Surname = "Morariu", Roles = EmployeeRoles.Executive, EmailAddress = "costin.morariu@iquestgroup.com", Manager = mihaiBarabas, },
-                new Employee { Firstname = "Ioana", Surname = "Sandu", Roles = EmployeeRoles.Hr | EmployeeRoles.Executive, EmailAddress = "ioana.sandu@iquestgroup.com", Manager = cosminMolnar, },
+                new Employee
+                {
+                    Firstname = "Hr", LastName = "Generic", BirthDate = The.Year(1900).On.January.The1st,
+                    HireDate = The.Year(2012).On.May.The13th,
+                    Roles = EmployeeRoles.Hr, 
+                    Email = "hr_holidays@contoso.com", 
+                    Manager = null,
+                },
+                new Employee
+                {
+                    Firstname = "Daniel", LastName = "Savu", BirthDate = The.Year(1980).On.December.The12th,
+                    HireDate = The.Year(2012).On.May.The13th,
+                    Roles = EmployeeRoles.Executive, 
+                    Email = "daniel.savu@contoso.com", 
+                    Manager = mihaiBarabas,
+                },
+                new Employee
+                {
+                    Firstname = "Costin", LastName = "Morariu", BirthDate = The.Year(1977).On.July.The4th,
+                    HireDate = The.Year(2012).On.May.The13th,
+                    Roles = EmployeeRoles.Executive, 
+                    Email = "costin.morariu@contoso.com", 
+                    Manager = mihaiBarabas,
+                },
+                new Employee
+                {
+                    Firstname = "Ioana", LastName = "Sandu",  BirthDate = The.Year(1983).On.March.The20th,
+                    HireDate = The.Year(2012).On.May.The13th,                    
+                    Roles = EmployeeRoles.Hr | EmployeeRoles.Executive, 
+                    Email = "ioana.sandu@contoso.com", 
+                    Manager = cosminMolnar,
+                },
             };
         }
 
-        private static List<VacationStatus> BuildVacationStatuses(IList<Employee> employees)
+        private static List<VacationStatus> BuildVacationStatuses(ICollection<Employee> employees)
         {
             var cornel = employees.Single(x => x.Firstname == "Cornel");
             var mihai = employees.Single(x => x.Firstname == "Mihai");
@@ -57,7 +106,7 @@ namespace VacationManager.Persistence.Tests
             };
         }
 
-        private static List<VacationRequest> BuildVacationRequests(IList<Employee> employees)
+        private static List<VacationRequest> BuildVacationRequests(ICollection<Employee> employees)
         {
             var mihai = employees.Single(x => x.Firstname == "Mihai");
             var costin = employees.Single(x => x.Firstname == "Costin");
@@ -66,24 +115,38 @@ namespace VacationManager.Persistence.Tests
             return new List<VacationRequest>
             {
                 // mihai's requests
-                new VacationRequest { State = VacationRequestState.Approved, Employee = mihai, CreationDate = The.Year(2012).On.December.The21st, VacationDays = 
-                    January.The3rd.ToString(VacationRequest.VacationDaysFormat) },
-                new VacationRequest { State = VacationRequestState.Submitted, Employee = mihai, CreationDate = January.The10th, VacationDays = 
-                    January.The13th.ToString(VacationRequest.VacationDaysFormat) + ";" + 
-                    January.The14th.ToString(VacationRequest.VacationDaysFormat) },
+                new VacationRequest 
+                { 
+                    State = VacationRequestState.Approved, Employee = mihai, CreationDate = January.The1st, 
+                    StartDate = January.The3rd, 
+                    EndDate = January.The3rd, 
+                },
+                new VacationRequest 
+                { 
+                    State = VacationRequestState.Submitted, Employee = mihai, CreationDate = August.The10th, 
+                    StartDate = August.The13th, 
+                    EndDate = August.The14th, 
+                },
                 // costin's requests
-                new VacationRequest { State = VacationRequestState.Approved, Employee = costin, CreationDate = January.The3rd, VacationDays = 
-                    January.The3rd.ToString(VacationRequest.VacationDaysFormat) },
-                new VacationRequest { State = VacationRequestState.Submitted, Employee = costin, CreationDate = January.The24th, VacationDays = 
-                    January.The28th.ToString(VacationRequest.VacationDaysFormat) + ";" + 
-                    January.The29th.ToString(VacationRequest.VacationDaysFormat) + ";" + 
-                    January.The30th.ToString(VacationRequest.VacationDaysFormat) + ";" + 
-                    January.The31st.ToString(VacationRequest.VacationDaysFormat) + ";" + 
-                    February.The1st.ToString(VacationRequest.VacationDaysFormat) },
+                new VacationRequest 
+                { 
+                    State = VacationRequestState.Approved, Employee = costin, CreationDate = January.The3rd, 
+                    StartDate = January.The3rd,
+                    EndDate = January.The3rd,
+                },
+                new VacationRequest 
+                { 
+                    State = VacationRequestState.Submitted, Employee = costin, CreationDate = September.The24th, 
+                    StartDate = September.The28th,
+                    EndDate = October.The1st,
+                },
                 // ioana's requests
-                new VacationRequest { State = VacationRequestState.Approved, Employee = ioana, CreationDate = The.Year(2012).On.December.The21st, VacationDays = 
-                    January.The4th.ToString(VacationRequest.VacationDaysFormat) + ";" + 
-                    January.The3rd.ToString(VacationRequest.VacationDaysFormat) },
+                new VacationRequest 
+                { 
+                    State = VacationRequestState.Approved, Employee = ioana, CreationDate = January.The21st, 
+                    StartDate = February.The4th, 
+                    EndDate = February.The4th,
+                },
             };
         }
     }

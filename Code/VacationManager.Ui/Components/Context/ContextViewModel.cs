@@ -69,7 +69,7 @@ namespace VacationManager.Ui.Components.Context
                 if (_currentEmployee != null)
                 {
                     RolesMessage = string.Format(ContextStrings.RolesMessageFormat, GetRoles());
-                    WelcomeMessage = string.Format(ContextStrings.WelcomeMessageFormat, _currentEmployee.Firstname, _currentEmployee.Surname);
+                    WelcomeMessage = string.Format(ContextStrings.WelcomeMessageFormat, _currentEmployee.Firstname, _currentEmployee.LastName);
                 }
             }
         }

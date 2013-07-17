@@ -4,12 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
-             xmlns:Converters="clr-namespace:VacationManager.Ui.Converters"
+             xmlns:converters="clr-namespace:VacationManager.Ui.Converters"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     
     <UserControl.Resources>
-        <Converters:Bool2VisibilityConverter x:Key="Bool2Visibility"/>
+        <converters:InvBool2VisibilityConverter x:Key="InvBool2Visibility"/>
     </UserControl.Resources>
     
     <Grid>
@@ -41,32 +42,73 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             
             <StackPanel Grid.RowSpan="5">
-                <TextBlock Text="{Binding Localization.VacationDaysFieldText}"/>
-                <Calendar SelectionMode="MultipleRange" IsEnabled="{Binding CanSaveRequest}"
-                      cal:Message.Attach ="[Event SelectedDatesChanged] = [Action UpdateSelectedDates($this.SelectedDates)]"/>
+                <!--The following commented definition of Calendar will bind DataContext to the $this param 
+                transmitted into UpdateModelSelectedDates() instead of the instance of Calendar this is a 
+                convention of Caliburn.Micro. The workaround is to use EventTriggers as a little bit down. 
+                All this shit is because of SelectedDates property of Calendar, which is not DependancyProperty 
+                => we can not bind to it!-->
+                <!--<Calendar SelectionMode="SingleRange" 
+                    IsHitTestVisible="{Binding Item.IsDirty}"
+                    cal:Message.Attach ="[Event SelectedDatesChanged] = [Action UpdateModelSelectedDates($this)]"/>-->
+                <Calendar x:Name="Calendar" SelectionMode="SingleRange" 
+                          IsHitTestVisible="{Binding IsCalendarAvailableForSelection}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectedDatesChanged">
+                            <cal:ActionMessage MethodName="UpdateModelSelectedDates">
+                                <cal:Parameter Value="{Binding ElementName=Calendar}" />
+                            </cal:ActionMessage>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Calendar>
+                <CheckBox x:Name="UseStartEndDateSelection" IsEnabled="{Binding Item.IsDirty}"
+                          Content="{Binding Localization.VacationDaysFieldText}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1">
+                <TextBlock Text="{Binding Localization.StartDateFieldText}"/>
+                <DatePicker IsEnabled="{Binding IsChecked, ElementName=UseStartEndDateSelection}" 
+                            SelectedDate="{Binding Item.StartDate, Mode=TwoWay}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="CalendarClosed">
+                            <cal:ActionMessage MethodName="UpdateViewSelectedDates">
+                                <cal:Parameter Value="{Binding ElementName=Calendar}" />
+                            </cal:ActionMessage>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </DatePicker>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Grid.Row="1">
+                <TextBlock Text="{Binding Localization.EndDateFieldText}"/>
+                <DatePicker IsEnabled="{Binding IsChecked, ElementName=UseStartEndDateSelection}" 
+                            SelectedDate="{Binding Item.EndDate, Mode=TwoWay}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="CalendarClosed">
+                            <cal:ActionMessage MethodName="UpdateViewSelectedDates">
+                                <cal:Parameter Value="{Binding ElementName=Calendar}" />
+                            </cal:ActionMessage>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </DatePicker>
             </StackPanel>
             
-            <StackPanel Grid.Column="1" Visibility="{Binding CanCancelRequest, Converter={StaticResource Bool2Visibility}}">
+            <StackPanel Grid.Column="1" Grid.Row="2">
+                <TextBlock Text="{Binding Localization.NumberOfDaysFieldText}"/>
+                <TextBox IsReadOnly="True" Text="{Binding Item.NumberOfDays, Mode=OneWay}"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" Grid.Row="3" Visibility="{Binding Item.IsNew, Converter={StaticResource InvBool2Visibility}}">
                 <TextBlock Text="{Binding Localization.RequestNumberFieldText}"/>
                 <TextBox IsReadOnly="True" Text="{Binding Item.RequestNumber, Mode=OneWay}"/>
             </StackPanel>
 
-            <StackPanel Grid.Column="1" Grid.Row="1" Visibility="{Binding CanCancelRequest, Converter={StaticResource Bool2Visibility}}">
-                <TextBlock Text="{Binding Localization.StatusFieldText}"/>
-                <TextBox IsReadOnly="True" Text="{Binding Item.State, Mode=OneWay}"/>
-            </StackPanel>
-
-            <StackPanel Grid.Column="1" Grid.Row="2" Visibility="{Binding CanCancelRequest, Converter={StaticResource Bool2Visibility}}">
+            <StackPanel Grid.Column="1" Grid.Row="4" Visibility="{Binding Item.IsDirty, Converter={StaticResource InvBool2Visibility}}">
                 <TextBlock Text="{Binding Localization.SubmissionDateFieldText}"/>
                 <DatePicker IsEnabled="False" SelectedDate="{Binding Item.SubmissionDate, Mode=OneWay}"/>
-            </StackPanel>
-            
-            <StackPanel Grid.Column="1" Grid.Row="3">
-                <TextBlock Text="{Binding Localization.NumberOfDaysFieldText}"/>
-                <TextBox IsReadOnly="True" Text="{Binding Item.NumberOfDays, Mode=OneWay}"/>
             </StackPanel>
         </Grid>
     </Grid>
