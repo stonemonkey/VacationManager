@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using Ninject;
-using VacationManager.Common.Model;
+using Common.Model;
 using VacationManager.Ui.Components.PendingRequests;
 using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
-using Vm.BusinessObjects.VacationRequests;
+using BusinessObjects.VacationRequests;
 
 namespace VacationManager.Ui.Components.ApprovedRequests
 {
@@ -13,6 +13,7 @@ namespace VacationManager.Ui.Components.ApprovedRequests
     public class ApprovedRequestsViewModel : Screen, IPopulableViewModel
     {
         private VacationRequestInfoList _items;
+        private VacationRequest _selectedItem;
 
         public static PendingRequestsStrings Localization
         {
@@ -44,6 +45,23 @@ namespace VacationManager.Ui.Components.ApprovedRequests
             }
         }
 
+        public VacationRequest SelectedItem
+        {
+            get { return _selectedItem; }
+            set
+            {
+                _selectedItem = value;
+
+                NotifyOfPropertyChange(() => SelectedItem);
+                NotifyOfPropertyChange(() => CanProcessRequest);
+            }
+        }
+
+        public bool CanProcessRequest
+        {
+            get { return CanChangeSelectedItemState(); }
+        }
+
         #endregion
 
         public ApprovedRequestsViewModel()
@@ -72,6 +90,33 @@ namespace VacationManager.Ui.Components.ApprovedRequests
                 yield return UiService.ShowMessageBox(result.Error.Message, GlobalStrings.ErrorCaption);
         }
 
+        public IEnumerable<IResult> ProcessRequest()
+        {
+            yield return new SequentialResult(
+                ChangeSelecedItemState(VacationRequestState.Processed).GetEnumerator());
+        }
+
         #endregion
+        
+        private bool CanChangeSelectedItemState()
+        {
+            return (_selectedItem != null);
+        }
+
+        private IEnumerable<IResult> ChangeSelecedItemState(VacationRequestState toState)
+        {
+            yield return UiService.ShowBusy();
+
+            var result = DataService.Execute(
+                new ChangeVacationRequestStateCommand(SelectedItem.RequestNumber, toState));
+            yield return result;
+
+            yield return UiService.HideBusy();
+
+            if (ReferenceEquals(null, result.Error))
+                yield return new SequentialResult(Populate().GetEnumerator());
+            else
+                yield return UiService.ShowMessageBox(result.Error.Message, GlobalStrings.ErrorCaption);
+        }
     }
 }

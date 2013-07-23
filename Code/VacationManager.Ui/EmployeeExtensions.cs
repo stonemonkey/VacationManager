@@ -1,5 +1,5 @@
-﻿using VacationManager.Common.Model;
-using Vm.BusinessObjects.Employees;
+﻿using BusinessObjects.Employees;
+using Common.Model;
 
 namespace VacationManager.Ui
 {

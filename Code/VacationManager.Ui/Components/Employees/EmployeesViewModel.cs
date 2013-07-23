@@ -3,7 +3,7 @@ using Caliburn.Micro;
 using Ninject;
 using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Services;
-using Vm.BusinessObjects.Employees;
+using BusinessObjects.Employees;
 
 namespace VacationManager.Ui.Components.Employees
 {

@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using Ninject;
-using VacationManager.Common.Model;
+using Common.Model;
 using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Components.Shell;
 using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
-using Vm.BusinessObjects.VacationRequests;
+using BusinessObjects.VacationRequests;
 
 namespace VacationManager.Ui.Components.MyRequests
 {
@@ -84,7 +84,7 @@ namespace VacationManager.Ui.Components.MyRequests
 
             var criteria = new VacationRequestSearchCriteria
             {
-                EmployeeId = Context.CurrentEmployee.Id, 
+                EmployeeId = Context.CurrentEmployee.EmployeeId, 
                 GetMine = true, 
                 States = null,
             };
@@ -110,8 +110,8 @@ namespace VacationManager.Ui.Components.MyRequests
 
             if (ReferenceEquals(null, result.Error))
                 yield return UiService.ShowChild<MyRequestDetailsViewModel>()
-                                      .In<IShellViewModel>()
-                                      .Configure(x => x.Item = result.Result);
+                    .In<IShellViewModel>()
+                    .Configure(x => x.Item = result.Result);
             else
                 yield return UiService.ShowMessageBox(result.Error.Message, GlobalStrings.ErrorCaption);
         }

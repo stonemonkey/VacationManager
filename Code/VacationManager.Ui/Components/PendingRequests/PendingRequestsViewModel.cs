@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using Caliburn.Micro;
 using Ninject;
-using VacationManager.Common.Model;
+using Common.Model;
 using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
-using Vm.BusinessObjects.VacationRequests;
+using BusinessObjects.VacationRequests;
 
 namespace VacationManager.Ui.Components.PendingRequests
 {
@@ -48,6 +48,7 @@ namespace VacationManager.Ui.Components.PendingRequests
             set
             {
                 _items = value;
+
                 NotifyOfPropertyChange(() => Items);
             }
         }
@@ -58,6 +59,7 @@ namespace VacationManager.Ui.Components.PendingRequests
             set
             {
                 _selectedItem = value;
+
                 NotifyOfPropertyChange(() => SelectedItem);
                 NotifyOfPropertyChange(() => CanApproveRequest);
                 NotifyOfPropertyChange(() => CanRejectRequest);
@@ -89,8 +91,8 @@ namespace VacationManager.Ui.Components.PendingRequests
 
             var criteria = new VacationRequestSearchCriteria
             {
-                GetMine = false, 
-                EmployeeId = Context.CurrentEmployee.Id, 
+                GetMine = false,
+                EmployeeId = Context.CurrentEmployee.EmployeeId, 
                 States = new[] { VacationRequestState.Submitted },
             };
             var result = DataService.FetchList<VacationRequestInfoList, VacationRequest>(criteria);
@@ -120,7 +122,7 @@ namespace VacationManager.Ui.Components.PendingRequests
 
         private bool CanChangeSelectedItemState()
         {
-            return _selectedItem != null;
+            return (_selectedItem != null);
         }
 
         private IEnumerable<IResult> ChangeSelecedItemState(VacationRequestState toState)

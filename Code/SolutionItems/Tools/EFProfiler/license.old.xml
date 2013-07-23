@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<license id="baf3bdb6-7e40-42c8-8743-3c759ea5072d" expiration="2013-02-13T00:00:00.0000000" type="Trial" prof="efprof" version="2" updatesExpiration="2014-Jan-11">
+  <name>io man</name>
+  <Signature xmlns="http://www.w3.org/2000/09/xmldsig#">
+    <SignedInfo>
+      <CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" />
+      <SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" />
+      <Reference URI="">
+        <Transforms>
+          <Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" />
+        </Transforms>
+        <DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <DigestValue>zzDOP2erphc2V2I9j0Uj3jUTV5M=</DigestValue>
+      </Reference>
+    </SignedInfo>
+    <SignatureValue>UWSZoEFOm+baw1oYTVES7txHaOrMyq+eM95w4yCRaRIOA4FViQK3Z6oVZMhHu/RGx5rTNAUonKYlbl9G1q+aOoEtIrs1bRV6CV4SlAW0OCVtI8QGu7WaXH73ALZZTJRE3sx/pPsn4cMTt/ZHKpG4Y9AwPcF2zDMyazitsADiiiE=</SignatureValue>
+  </Signature>
+</license>

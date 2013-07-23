@@ -34,8 +34,9 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Request No." Binding="{Binding RequestNumber}"/>
                 <DataGridTextColumn Header="Employee" Binding="{Binding EmployeeFullName}"/>
-                <DataGridTextColumn Header="Number of days" Binding="{Binding VacationDays.Count}"/>
-                <DataGridTextColumn Header="Vacation days" Binding="{Binding Days}"/>
+                <DataGridTextColumn Header="Number of days" Binding="{Binding NumberOfDays}"/>
+                <DataGridTextColumn Header="Start date" Binding="{Binding StartDate}"/>
+                <DataGridTextColumn Header="End date" Binding="{Binding EndDate}"/>
                 <DataGridTextColumn Header="Submission date" Binding="{Binding SubmissionDate}"/>
             </DataGrid.Columns>
         </DataGrid>

@@ -59,6 +59,9 @@
     <Reference Include="Csla">
       <HintPath>..\packages\CSLA-Core.4.5.30\lib\net45\Csla.dll</HintPath>
     </Reference>
+    <Reference Include="Csla.Xaml">
+      <HintPath>..\packages\CSLA-WPF.4.5.30\lib\net45\Csla.Xaml.dll</HintPath>
+    </Reference>
     <Reference Include="Csla.XmlSerializers">
       <HintPath>..\packages\CSLA-Core.4.5.30\lib\net45\Csla.XmlSerializers.dll</HintPath>
     </Reference>
@@ -141,6 +144,7 @@
     <Compile Include="Components\Employees\EmployeesView.xaml.cs">
       <DependentUpon>EmployeesView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\EnumerableResultExtensions.cs" />
     <Compile Include="Components\IPopulableViewModel.cs" />
     <Compile Include="Components\IExplorerViewModel.cs" />
     <Compile Include="Components\LogIn\LoginStrings1.Designer.cs">
@@ -186,21 +190,20 @@
     </Compile>
     <Compile Include="Components\PendingRequests\PendingRequestsViewModel.cs" />
     <Compile Include="Components\Context\IContextViewModel.cs" />
-    <Compile Include="Components\EnumerableResultExtensions.cs" />
     <Compile Include="Components\Context\ContextStrings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ContextStrings.resx</DependentUpon>
     </Compile>
-    <Compile Include="Components\VacationStatus\VacationStatusStrings.Designer.cs">
-      <DependentUpon>VacationStatusStrings.resx</DependentUpon>
+    <Compile Include="Components\EmployeeSituation\EmployeeSituationStrings.Designer.cs">
+      <DependentUpon>EmployeeSituationStrings.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Components\VacationStatus\VacationStatusView.xaml.cs">
-      <DependentUpon>VacationStatusView.xaml</DependentUpon>
+    <Compile Include="Components\EmployeeSituation\EmployeeSituationView.xaml.cs">
+      <DependentUpon>EmployeeSituationView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\VacationStatus\VacationStatusViewModel.cs" />
+    <Compile Include="Components\EmployeeSituation\EmployeeSituationViewModel.cs" />
     <Compile Include="Configuration.cs" />
     <Compile Include="Converters\Bool2VisibilityConverter.cs" />
     <Compile Include="Converters\InvBool2VisibilityConverter.cs" />
@@ -305,7 +308,7 @@
     <Compile Include="Infrastructure\Menu.cs" />
     <Compile Include="Infrastructure\MenuCollection.cs" />
     <Compile Include="Infrastructure\RelayCommand.cs" />
-    <Page Include="Components\VacationStatus\VacationStatusView.xaml">
+    <Page Include="Components\EmployeeSituation\EmployeeSituationView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -361,9 +364,9 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ShellStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Components\VacationStatus\VacationStatusStrings.resx">
+    <EmbeddedResource Include="Components\EmployeeSituation\EmployeeSituationStrings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>VacationStatusStrings.Designer.cs</LastGenOutput>
+      <LastGenOutput>EmployeeSituationStrings.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -432,21 +435,21 @@
     <Resource Include="Resources\Icons\icontexto-webdev-remove-032x032.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VacationManager.Common\VacationManager.Common.csproj">
-      <Project>{17e37395-274b-4ac5-9601-1e4205c11457}</Project>
-      <Name>VacationManager.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Vm.BusinessObjects.Client\Vm.BusinessObjects.Client.csproj">
-      <Project>{c4c73bc2-5eb0-47bb-a613-2fef4dbca4e7}</Project>
-      <Name>Vm.BusinessObjects.Client</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Icons\icontexto-webdev-cancel-032x032.png" />
     <Resource Include="Resources\Icons\icontexto-webdev-ok-032x032.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Icons\Login.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessObjects.Client\BusinessObjects.Client.csproj">
+      <Project>{c4c73bc2-5eb0-47bb-a613-2fef4dbca4e7}</Project>
+      <Name>BusinessObjects.Client</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{17e37395-274b-4ac5-9601-1e4205c11457}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

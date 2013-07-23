@@ -4,8 +4,8 @@ using Csla;
 using Ninject;
 using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
-using Vm.BusinessObjects.Employees;
-using Vm.BusinessObjects.Security;
+using BusinessObjects.Employees;
+using BusinessObjects.Security;
 
 namespace VacationManager.Ui.Components.Context
 {
@@ -70,9 +70,9 @@ namespace VacationManager.Ui.Components.Context
                 if (_currentEmployee != null)
                 {
                     RolesMessage = string.Format(
-                        ContextStrings.RolesMessageFormat, _currentEmployee.Roles.ToString());
+                        ContextStrings.RolesMessageFormat, _currentEmployee.Roles);
                     WelcomeMessage = string.Format(
-                        ContextStrings.WelcomeMessageFormat, _currentEmployee.Firstname, _currentEmployee.LastName);
+                        ContextStrings.WelcomeMessageFormat, _currentEmployee.FirstName, _currentEmployee.LastName);
                 }
             }
         }

@@ -8,7 +8,7 @@ using Ninject;
 using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
-using Vm.BusinessObjects.VacationRequests;
+using BusinessObjects.VacationRequests;
 using Calendar = System.Windows.Controls.Calendar;
 
 namespace VacationManager.Ui.Components.MyRequests
@@ -97,7 +97,7 @@ namespace VacationManager.Ui.Components.MyRequests
         {
             yield return UiService.ShowBusy();
 
-            _item.EmployeeId = Context.CurrentEmployee.Id;
+            _item.EmployeeId = Context.CurrentEmployee.EmployeeId;
             var result = DataService.Update(_item);
             yield return result;
 

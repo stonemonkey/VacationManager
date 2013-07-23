@@ -1,0 +1,35 @@
+==========================================================================================================================
+A) Enabling EF Migration (DO NOT SET THIS - it is already done)
+==========================================================================================================================
+1) enable-migrations -ContextTypeName VacationManagerContext
+2) add-migration -Name InitialSchema -ProjectName Persistence -StartUpProjectName IISHost -ConfigurationTypeName Persistence.Migrations.Configuration -ConnectionStringName VacationManagerContext
+
+==========================================================================================================================
+B) Setting development environment DB and IIS hosting (ONLY DO THIS ONCE if you do not have already setup your db and iis)
+==========================================================================================================================
+Prerequisites:
+- Administrator righst on the user performing steps;
+- IIS installed, up and running and configured with Default Web Site/DefaultAppPool using v4.0/Integrated/NetworkService 
+
+Steps:
+1) open solution as Administrator
+2) create IIS instance for business server:
+	- go to IISHost project properties (select IISHost project in Solution Explorer window, press Alt+Enter);
+	- navigate to Web tab
+	- check UseLocal IISWeb Server
+	- set Project URL to http://localhost/VmInt13
+	- press Create Virtual Directory
+	- check Override application root URL and set it to http://localhost/VmInt13
+3) create database by running the following command in Package Manager Console within MSVS (VIEW->Other Windows->Package Manager Console):
+	- update-database -ProjectName Persistence -StartUpProjectName IISHost -ConfigurationTypeName Persistence.Migrations.Configuration -ConnectionStringName VacationManagerContext
+4) give read and write rights for the user under which IISHost - AppPool is running in SQL (recomanded NT AUTHORITY\NETWORK SERVICE):
+	- open SQL Management Console;
+	- connect to your SQL instance (localhost);
+	- expand Databases->VacationManager->Security->Users
+	- add new user (right click on Users -> New User... -> General tab -> User name: NT AUTHORITY\NETWORK SERVICE -> Login name: NT AUTHORITY\NETWORK SERVICE -> Membership -> check db_datareader and db_datawriter -> Ok);
+
+==========================================================================================================================
+C) Update DB schema (REPEAT THIS steps after each change on Persistence Entity classes or adding new ones)
+==========================================================================================================================
+1) add-migration -Name <relevant_name_for_change> -ProjectName Persistence -StartUpProjectName IISHost -ConfigurationTypeName Persistence.Migrations.Configuration -ConnectionStringName VacationManagerContext
+2) update-database -ProjectName Persistence -StartUpProjectName IISHost -ConfigurationTypeName Persistence.Migrations.Configuration -ConnectionStringName VacationManagerContext

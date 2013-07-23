@@ -6,7 +6,22 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <DataGrid x:Name="Items"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <StackPanel Orientation="Horizontal">
+            <Button x:Name="ProcessRequest" ToolTip="{Binding Localization.ProcessTooltipText}">
+                <Image Source="/VacationManager.Ui;component/Resources/Icons/icontexto-webdev-ok-032x032.png"/>
+            </Button>
+        </StackPanel>
+
+        <DataGrid x:Name="Items" Grid.Row="1" Grid.ColumnSpan="2"
                   HorizontalAlignment="Stretch"
                   AutoGenerateColumns="False" IsReadOnly="True"
                   SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
@@ -14,8 +29,9 @@
                 <DataGridTextColumn Header="Request No." Binding="{Binding RequestNumber}"/>
                 <DataGridTextColumn Header="Employee" Binding="{Binding EmployeeFullName}"/>
                 <DataGridTextColumn Header="Manageer"/>
-                <DataGridTextColumn Header="Number of days" Binding="{Binding VacationDays.Count}"/>
-                <DataGridTextColumn Header="Vacation days" Binding="{Binding Days}"/>
+                <DataGridTextColumn Header="Number of days" Binding="{Binding NumberOfDays}"/>
+                <DataGridTextColumn Header="Start date" Binding="{Binding StartDate}"/>
+                <DataGridTextColumn Header="End date" Binding="{Binding EndDate}"/>
                 <DataGridTextColumn Header="Submission date" Binding="{Binding SubmissionDate}"/>
             </DataGrid.Columns>
         </DataGrid>

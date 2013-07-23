@@ -5,7 +5,7 @@ using Csla.Security;
 using Ninject;
 using VacationManager.Ui.Components.Shell;
 using VacationManager.Ui.Services;
-using Vm.BusinessObjects.Security;
+using BusinessObjects.Security;
 
 namespace VacationManager.Ui.Components.LogIn
 {
@@ -78,6 +78,8 @@ namespace VacationManager.Ui.Components.LogIn
             DisplayName = LoginStrings.Title;
         }
 
+        #region Actions
+
         public IEnumerable<IResult> Login()
         {
             yield return UiService.ShowBusy();
@@ -89,7 +91,7 @@ namespace VacationManager.Ui.Components.LogIn
 
             if (result.Error == null)
             {
-                if (result.Result == null || !result.Result.IsAuthenticated)
+                if ((result.Result == null) || !result.Result.IsAuthenticated)
                 {
                     ApplicationContext.User = new UnauthenticatedPrincipal();
 
@@ -112,7 +114,9 @@ namespace VacationManager.Ui.Components.LogIn
             {
                 yield return UiService.ShowMessageBox(
                     result.Error.Message, LoginStrings.ErrorMessageBoxCaption);
-            }        
+            }
         }
+
+        #endregion
     }
 }

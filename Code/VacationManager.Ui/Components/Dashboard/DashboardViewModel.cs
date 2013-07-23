@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using Caliburn.Micro;
-using Csla;
 using Ninject;
-using VacationManager.Common.Model;
+using Common.Model;
 using VacationManager.Ui.Components.ApprovedRequests;
 using VacationManager.Ui.Components.Context;
+using VacationManager.Ui.Components.EmployeeSituation;
 using VacationManager.Ui.Components.PendingRequests;
-using VacationManager.Ui.Components.VacationStatus;
 using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
 
@@ -32,7 +31,7 @@ namespace VacationManager.Ui.Components.Dashboard
         public IContextViewModel Context { get; set; }
         
         [Inject]
-        public VacationStatusViewModel VacationStatus { get; set; }
+        public EmployeeSituationViewModel EmployeeSituation { get; set; }
 
         [Inject]
         public PendingRequestsViewModel PendingRequests { get; set; }
@@ -45,23 +44,23 @@ namespace VacationManager.Ui.Components.Dashboard
         // TODO: should be moved somewhere else
         public bool IsManager
         {
-            get { return ApplicationContext.User.IsInRole(EmployeeRoles.Manager.ToString()); }
+            get { return Csla.ApplicationContext.User.IsInRole(EmployeeRoles.Manager.ToString()); }
         }
 
         // TODO: should be moved somewhere else
         public bool IsHr
         {
-            get { return ApplicationContext.User.IsInRole(EmployeeRoles.Hr.ToString()); }
+            get { return Csla.ApplicationContext.User.IsInRole(EmployeeRoles.Hr.ToString()); }
         }
 
         public DashboardViewModel()
         {
-            DisplayName = DashboardStrings.Title;
+            DisplayName = DashboardStrings.Title + " " + Csla.ApplicationContext.User.Identity.Name;
         }
 
         public IEnumerable<IResult> Populate()
         {
-            yield return Populate(VacationStatus);
+            yield return Populate(EmployeeSituation);
             
             if (IsManager)
                 yield return Populate(PendingRequests);

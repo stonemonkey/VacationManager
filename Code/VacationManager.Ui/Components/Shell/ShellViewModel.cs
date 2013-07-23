@@ -2,7 +2,7 @@
 using Caliburn.Micro;
 using Csla;
 using Ninject;
-using VacationManager.Common.Model;
+using Common.Model;
 using VacationManager.Ui.Components.Context;
 using VacationManager.Ui.Components.Dashboard;
 using VacationManager.Ui.Components.DialogBox;
@@ -43,14 +43,6 @@ namespace VacationManager.Ui.Components.Shell
             screen.TryClose();
         }
 
-        protected override void OnInitialize()
-        {
-            base.OnInitialize();
-
-            UiService.ShowDialog<LoginViewModel>()
-                .Execute(new ActionExecutionContext { Target = this });
-        }
-
         public IEnumerable<IResult> Load()
         {
             // load context
@@ -60,6 +52,26 @@ namespace VacationManager.Ui.Components.Shell
 
             // load default page
             yield return UiService.ShowChild<DashboardViewModel>().In(this);
+        }
+        
+        protected override void OnInitialize()
+        {
+            base.OnInitialize();
+
+            AutomaticLoginTestPurpose();
+            //UiService.ShowDialog<LoginViewModel>()
+            //    .Execute(new ActionExecutionContext { Target = this });
+        }
+
+        private static void AutomaticLoginTestPurpose()
+        {
+            var loginViewModel = IoC.Get<LoginViewModel>();
+            loginViewModel.User = "costin.morariu@contoso.com";
+            loginViewModel.Password = "Pwd";
+
+            //var sequentialResult = new SequentialResult(loginViewModel.Login().GetEnumerator());
+            //sequentialResult.Execute(new ActionExecutionContext());
+            loginViewModel.Login().ExecuteSequential();
         }
 
         private void LoadMenuBar()

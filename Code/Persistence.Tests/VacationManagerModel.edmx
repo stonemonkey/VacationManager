@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Edmx Version="3.0" xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <Runtime>
+    <ConceptualModels>
+      <Schema Namespace="VacationManager.Persistence" Alias="Self" p4:UseStrongSpatialTypes="false" xmlns:p4="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EmployeeEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p4:StoreGeneratedPattern="Identity" />
+          <Property Name="LastName" Type="String" FixedLength="false" MaxLength="Max" Unicode="true" Nullable="true" />
+          <Property Name="Firstname" Type="String" FixedLength="false" MaxLength="Max" Unicode="true" Nullable="true" />
+          <Property Name="Cnp" Type="String" FixedLength="false" MaxLength="Max" Unicode="true" Nullable="true" />
+          <Property Name="Gender" Type="String" FixedLength="false" MaxLength="Max" Unicode="true" Nullable="true" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" />
+          <Property Name="Email" Type="String" FixedLength="false" MaxLength="Max" Unicode="true" Nullable="true" />
+          <Property Name="Address" Type="String" FixedLength="false" MaxLength="Max" Unicode="true" Nullable="true" />
+          <Property Name="PhoneNumber" Type="String" FixedLength="false" MaxLength="Max" Unicode="true" Nullable="true" />
+          <Property Name="HireDate" Type="DateTime" Nullable="false" />
+          <Property Name="Roles" Type="Self.EmployeeRoles" Nullable="false" />
+          <Property Name="Salt" Type="String" FixedLength="false" MaxLength="Max" Unicode="true" Nullable="true" />
+          <Property Name="Password" Type="String" FixedLength="false" MaxLength="Max" Unicode="true" Nullable="true" />
+          <NavigationProperty Name="Manager" Relationship="Self.EmployeeEntity_Manager" FromRole="EmployeeEntity_Manager_Source" ToRole="EmployeeEntity_Manager_Target" />
+        </EntityType>
+        <EntityType Name="VacationRequestEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p4:StoreGeneratedPattern="Identity" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" />
+          <Property Name="State" Type="Self.VacationRequestState" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.VacationRequestEntity_Employee" FromRole="VacationRequestEntity_Employee_Source" ToRole="VacationRequestEntity_Employee_Target" />
+        </EntityType>
+        <EntityType Name="EmployeeSituationEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" p4:StoreGeneratedPattern="Identity" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="PaidDays" Type="Int32" Nullable="false" />
+          <Property Name="ConsumedDays" Type="Int32" Nullable="false" />
+          <Property Name="AvailableDays" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="Self.EmployeeSituationEntity_Employee" FromRole="EmployeeSituationEntity_Employee_Source" ToRole="EmployeeSituationEntity_Employee_Target" />
+        </EntityType>
+        <EnumType Name="EmployeeRoles" IsFlags="true" UnderlyingType="Int32">
+          <Member Name="Executive" Value="0" />
+          <Member Name="Manager" Value="1" />
+          <Member Name="Hr" Value="2" />
+        </EnumType>
+        <EnumType Name="VacationRequestState" IsFlags="false" UnderlyingType="Int32">
+          <Member Name="Submitted" Value="1" />
+          <Member Name="Approved" Value="2" />
+          <Member Name="Rejected" Value="3" />
+        </EnumType>
+        <Association Name="EmployeeEntity_Manager">
+          <End Role="EmployeeEntity_Manager_Source" Type="Self.EmployeeEntity" Multiplicity="*" />
+          <End Role="EmployeeEntity_Manager_Target" Type="Self.EmployeeEntity" Multiplicity="0..1" />
+        </Association>
+        <Association Name="VacationRequestEntity_Employee">
+          <End Role="VacationRequestEntity_Employee_Source" Type="Self.VacationRequestEntity" Multiplicity="*" />
+          <End Role="VacationRequestEntity_Employee_Target" Type="Self.EmployeeEntity" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+        </Association>
+        <Association Name="EmployeeSituationEntity_Employee">
+          <End Role="EmployeeSituationEntity_Employee_Source" Type="Self.EmployeeSituationEntity" Multiplicity="*" />
+          <End Role="EmployeeSituationEntity_Employee_Target" Type="Self.EmployeeEntity" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+        </Association>
+        <EntityContainer Name="VacationManagerContext">
+          <EntitySet Name="Employees" EntityType="Self.EmployeeEntity" />
+          <EntitySet Name="Requests" EntityType="Self.VacationRequestEntity" />
+          <EntitySet Name="VacationStatus" EntityType="Self.EmployeeSituationEntity" />
+          <AssociationSet Name="EmployeeEntity_Manager" Association="Self.EmployeeEntity_Manager">
+            <End Role="EmployeeEntity_Manager_Source" EntitySet="Employees" />
+            <End Role="EmployeeEntity_Manager_Target" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="VacationRequestEntity_Employee" Association="Self.VacationRequestEntity_Employee">
+            <End Role="VacationRequestEntity_Employee_Source" EntitySet="Requests" />
+            <End Role="VacationRequestEntity_Employee_Target" EntitySet="Employees" />
+          </AssociationSet>
+          <AssociationSet Name="EmployeeSituationEntity_Employee" Association="Self.EmployeeSituationEntity_Employee">
+            <End Role="EmployeeSituationEntity_Employee_Source" EntitySet="VacationStatus" />
+            <End Role="EmployeeSituationEntity_Employee_Target" EntitySet="Employees" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </ConceptualModels>
+    <Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CodeFirstDatabase" CdmEntityContainer="VacationManagerContext">
+          <EntitySetMapping Name="Employees">
+            <EntityTypeMapping TypeName="VacationManager.Persistence.EmployeeEntity">
+              <MappingFragment StoreEntitySet="EmployeeEntity">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
+                <ScalarProperty Name="Cnp" ColumnName="Cnp" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="HireDate" ColumnName="HireDate" />
+                <ScalarProperty Name="Roles" ColumnName="Roles" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requests">
+            <EntityTypeMapping TypeName="VacationManager.Persistence.VacationRequestEntity">
+              <MappingFragment StoreEntitySet="VacationRequestEntity">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="State" ColumnName="State" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VacationStatus">
+            <EntityTypeMapping TypeName="VacationManager.Persistence.EmployeeSituationEntity">
+              <MappingFragment StoreEntitySet="EmployeeSituationEntity">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="PaidDays" ColumnName="PaidDays" />
+                <ScalarProperty Name="ConsumedDays" ColumnName="ConsumedDays" />
+                <ScalarProperty Name="AvailableDays" ColumnName="AvailableDays" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="EmployeeEntity_Manager" TypeName="VacationManager.Persistence.EmployeeEntity_Manager" StoreEntitySet="EmployeeEntity">
+            <EndProperty Name="EmployeeEntity_Manager_Target">
+              <ScalarProperty Name="Id" ColumnName="Manager_Id" />
+            </EndProperty>
+            <EndProperty Name="EmployeeEntity_Manager_Source">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="Manager_Id" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="VacationRequestEntity_Employee" TypeName="VacationManager.Persistence.VacationRequestEntity_Employee" StoreEntitySet="VacationRequestEntity">
+            <EndProperty Name="VacationRequestEntity_Employee_Target">
+              <ScalarProperty Name="Id" ColumnName="Employee_Id" />
+            </EndProperty>
+            <EndProperty Name="VacationRequestEntity_Employee_Source">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="EmployeeSituationEntity_Employee" TypeName="VacationManager.Persistence.EmployeeSituationEntity_Employee" StoreEntitySet="EmployeeSituationEntity">
+            <EndProperty Name="EmployeeSituationEntity_Employee_Target">
+              <ScalarProperty Name="Id" ColumnName="Employee_Id" />
+            </EndProperty>
+            <EndProperty Name="EmployeeSituationEntity_Employee_Source">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </Mappings>
+    <StorageModels>
+      <Schema Namespace="CodeFirstDatabaseSchema" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EmployeeEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Firstname" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Cnp" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Gender" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="BirthDate" Type="datetime" Nullable="false" />
+          <Property Name="Email" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Address" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="HireDate" Type="datetime" Nullable="false" />
+          <Property Name="Roles" Type="int" Nullable="false" />
+          <Property Name="Salt" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="true" />
+          <Property Name="Manager_Id" Type="bigint" Nullable="true" />
+        </EntityType>
+        <EntityType Name="VacationRequestEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="EndDate" Type="datetime" Nullable="false" />
+          <Property Name="State" Type="int" Nullable="false" />
+          <Property Name="Employee_Id" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeSituationEntity">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="PaidDays" Type="int" Nullable="false" />
+          <Property Name="ConsumedDays" Type="int" Nullable="false" />
+          <Property Name="AvailableDays" Type="int" Nullable="false" />
+          <Property Name="Employee_Id" Type="bigint" Nullable="false" />
+        </EntityType>
+        <Association Name="EmployeeEntity_Manager">
+          <End Role="EmployeeEntity" Type="Self.EmployeeEntity" Multiplicity="0..1" />
+          <End Role="EmployeeEntitySelf" Type="Self.EmployeeEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeEntity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeEntitySelf">
+              <PropertyRef Name="Manager_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="VacationRequestEntity_Employee">
+          <End Role="EmployeeEntity" Type="Self.EmployeeEntity" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="VacationRequestEntity" Type="Self.VacationRequestEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeEntity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VacationRequestEntity">
+              <PropertyRef Name="Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EmployeeSituationEntity_Employee">
+          <End Role="EmployeeEntity" Type="Self.EmployeeEntity" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EmployeeSituationEntity" Type="Self.EmployeeSituationEntity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeEntity">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="EmployeeSituationEntity">
+              <PropertyRef Name="Employee_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CodeFirstDatabase">
+          <EntitySet Name="EmployeeEntity" EntityType="Self.EmployeeEntity" Schema="dbo" Table="Employees" />
+          <EntitySet Name="VacationRequestEntity" EntityType="Self.VacationRequestEntity" Schema="dbo" Table="VacationRequests" />
+          <EntitySet Name="EmployeeSituationEntity" EntityType="Self.EmployeeSituationEntity" Schema="dbo" Table="EmployeeSituation" />
+          <AssociationSet Name="EmployeeEntity_Manager" Association="Self.EmployeeEntity_Manager">
+            <End Role="EmployeeEntity" EntitySet="EmployeeEntity" />
+            <End Role="EmployeeEntitySelf" EntitySet="EmployeeEntity" />
+          </AssociationSet>
+          <AssociationSet Name="VacationRequestEntity_Employee" Association="Self.VacationRequestEntity_Employee">
+            <End Role="EmployeeEntity" EntitySet="EmployeeEntity" />
+            <End Role="VacationRequestEntity" EntitySet="VacationRequestEntity" />
+          </AssociationSet>
+          <AssociationSet Name="EmployeeSituationEntity_Employee" Association="Self.EmployeeSituationEntity_Employee">
+            <End Role="EmployeeEntity" EntitySet="EmployeeEntity" />
+            <End Role="EmployeeSituationEntity" EntitySet="EmployeeSituationEntity" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </StorageModels>
+  </Runtime>
+  <Designer>
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="ProcessDependentTemplatesOnSave" Value="False" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <Diagrams >
+      <Diagram DiagramId="82e07e732cb54372af95776915e8d87f" Name="Diagram1">
+        <EntityTypeShape EntityType="VacationManager.Persistence.EmployeeEntity" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="VacationManager.Persistence.VacationRequestEntity" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="VacationManager.Persistence.EmployeeSituationEntity" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <AssociationConnector Association="VacationManager.Persistence.EmployeeEntity_Manager" ManuallyRouted="false" />
+        <AssociationConnector Association="VacationManager.Persistence.VacationRequestEntity_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="VacationManager.Persistence.EmployeeSituationEntity_Employee" ManuallyRouted="false" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</Edmx>

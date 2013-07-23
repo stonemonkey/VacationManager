@@ -3,7 +3,7 @@ using System.Security.Principal;
 using Caliburn.Micro;
 using Csla;
 using Csla.Security;
-using Vm.BusinessObjects.Security;
+using BusinessObjects.Security;
 
 namespace VacationManager.Ui.Results
 {
