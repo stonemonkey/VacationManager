@@ -22,10 +22,13 @@ namespace BusinessObjects.VacationRequests
                 else
                 {
                     var query = ctx.Requests.AsQueryable();
-                    if (criteria.GetMine)
-                        query = query.Where(x => x.Employee.Id == criteria.EmployeeId);
-                    else
-                        query = query.Where(x => x.Employee.Manager.Id == criteria.EmployeeId);
+                    if (criteria.EmployeeId != 0)
+                    {
+                        if (criteria.GetMine)
+                            query = query.Where(x => x.Employee.Id == criteria.EmployeeId);
+                        else
+                            query = query.Where(x => x.Employee.Manager.Id == criteria.EmployeeId);
+                    }
 
                     if (criteria.States != null)
                         query = query.Where(x => criteria.States.Contains(x.State));

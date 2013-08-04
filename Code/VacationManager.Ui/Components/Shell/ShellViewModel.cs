@@ -58,9 +58,9 @@ namespace VacationManager.Ui.Components.Shell
         {
             base.OnInitialize();
 
-            AutomaticLoginTestPurpose();
-            //UiService.ShowDialog<LoginViewModel>()
-            //    .Execute(new ActionExecutionContext { Target = this });
+            //AutomaticLoginTestPurpose();
+            UiService.ShowDialog<LoginViewModel>()
+                .Execute(new ActionExecutionContext { Target = this });
         }
 
         private static void AutomaticLoginTestPurpose()

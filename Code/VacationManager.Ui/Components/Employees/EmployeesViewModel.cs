@@ -2,6 +2,7 @@
 using Caliburn.Micro;
 using Ninject;
 using VacationManager.Ui.Components.Context;
+using VacationManager.Ui.Resources;
 using VacationManager.Ui.Services;
 using BusinessObjects.Employees;
 
@@ -79,18 +80,15 @@ namespace VacationManager.Ui.Components.Employees
         {
             yield return UiService.ShowBusy();
 
-            //var criteria = new EmployeeSearchCriteriaDto
-            //{
-            //};
-            //var result = DataService.FetchList<EmployeeInfoList, Employee>(criteria);
-            //yield return result;
+            var result = DataService.FetchList<EmployeeInfoList, Employee>(null);
+            yield return result;
 
             yield return UiService.HideBusy();
 
-            //if (ReferenceEquals(null, result.Error))
-            //    Items = result.Result;
-            //else
-            //    yield return UiService.ShowWindowsMessageBox(result.Error.Message, GlobalStrings.ErrorCaption);
+            if (ReferenceEquals(null, result.Error))
+                Items = result.Result;
+            else
+                yield return UiService.ShowWindowsMessageBox(result.Error.Message, GlobalStrings.ErrorCaption);
         }
 
         //public IEnumerable<IResult> OpenDetailsForCreatingEmployee()

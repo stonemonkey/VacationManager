@@ -46,9 +46,9 @@
                         </Style>
                     </DataGridTextColumn.HeaderStyle>
                 </DataGridTextColumn>-->
-                <DataGridTextColumn Header="Request No." Binding="{Binding RequestNumber}"/>
-                <DataGridTextColumn Header="State" Binding="{Binding State}"/>
-                <DataGridTextColumn Header="Submission date" Binding="{Binding SubmissionDate}"/>
+                <DataGridTextColumn Header="Id" Binding="{Binding EmployeeId}"/>
+                <DataGridTextColumn Header="First name" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Header="Last name" Binding="{Binding LastName}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
